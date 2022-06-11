@@ -60,16 +60,18 @@ def login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        print(username, password)
-
         user = authenticate(username=username, password=password)
-        print(user)
         if user is not None:
             auth_login(request, user)
-            print('logged in')
             return redirect('index')
+
         else:
             messages.error(request, 'Invalid credentials')
             return redirect('login')
     
     return render(request, template_name='login.html')
+
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return render(request,'login.html')

@@ -8,7 +8,7 @@
   <title>{% block title %}{% endblock title %}</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'stock/css/inde.css' %}">
+  <link rel="stylesheet" href="{% static 'stock/css/base.css' %}">
   {% block static %}{% endblock static %}
 
 
@@ -24,15 +24,22 @@
         </div>
         <div class="link">
           <ul class=" text-white ul-links">
-            <li class="link-item">Home</li>
+            <li class="link-item "><a class="text-decoration-none text-light" href="{% url 'index' %}">Home</a></li>
             <li  class="lst-child" >My Portfolio</li>
           </ul>
         </div>
         <div class="auth-section mt-2 d-flex float-end">
           <ul class="text-dark float-end">
-            <li class="border border-login text-dark shadow-lg">LogIn</li>
-            <li class="text-white sign-up">SignUp</li>
-            <li class="text-white sign-up">{{ request.user }}</li>
+            {% if user.is_authenticated %}
+            <li class="border border-login text-dark shadow-lg">
+              <a href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="border border-login text-dark shadow-lg">
+              <a href="{% url 'login' %}">Login/SignUp</a>
+            <!-- <li class="border border-login text-dark shadow-lg">LogIn</li> -->
+            {% endif %}
+            <li class="text-white sign-up">welcome,  {{ request.user }}</li>
 
           </ul>
         </div>

@@ -1,0 +1,89 @@
+*{
+    box-sizing:0;
+  }
+
+body{
+  background: #e55d87; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #e55d87, #5fc3e4); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #e55d87, #5fc3e4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */;
+}
+  
+  nav{
+    background:transparent;
+    height:100px;
+    width:auto;
+    
+  }
+  
+  .logo{
+    display:flex;
+    background-color:white;
+    border-radius:50%;
+    height:80px;
+    width:80px;
+    justify-content:center;
+    align-items:center;
+  }
+  
+  .stock-logo{
+    display:flex;
+    background-color:white;
+    border-radius:50%;
+    height:80px;
+    width:80px;
+    justify-content:center;
+    align-items:center;
+    margin:0.5rem;
+}
+
+
+  /*  {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  } */
+  
+  .lst-child{
+    margin-left:1rem;
+  }
+  
+  li {
+    display: inline;
+    font-weight:900;
+    font-size:20px;
+  }
+  
+  .link{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:1rem;
+  }
+  
+  .auth-section{
+    display:flex;
+    align-items:center;
+    justify-content:space-between
+  }
+  
+  .border-login{
+    padding:10px 20px;
+    border-radius:5px;
+    background-color:white;
+  }
+  
+  .sign-up{
+    margin-left:1.6rem;
+     padding:10px 20px;
+  }
+  
+  .sign-up:hover{
+    padding:10px 20px;
+    transition:0.3s ease;
+    margin-left:1.5rem;
+    border-radius:5px;
+    border:2px  solid white;
+    box-shadow: 5px 5px 20px black
+    
+  }
+  
