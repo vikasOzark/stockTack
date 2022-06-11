@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Register here{% endblock title %}
+{% block static %}<link rel="stylesheet" href="{% static 'stock/css/registration.css' %}">{% endblock static %}
+{% block content %}
+  <main>
+    <!--Hey! This is the original version
+of Simple CSS Waves-->
+
+<div class="header">
+
+  <!--Content before waves-->
+  <div class="inner-header flex">
+  <!--Just the logo.. Don't mind this-->
+
+  <h1 class="text-light font-extrabold d-flex justify-content-center mt-5">Register here </h1>
+  <div class="container">
+    <form action="" method="post">
+      {% csrf_token %}
+      <div class="main  p-2 rounded-2 shadow-lg">
+        <!--<label for="first_name text-gray ">First name </label> -->
+              <input type="text" name="first_name" placeholder="First name" class=" rounded-0 ">
+              <input type="text" name="last_name" placeholder="Last name" class=" rounded-0 ">
+              <input type="text" name="username" placeholder="Username" class=" rounded-0">
+            
+              <input type="email" id="email" name="email" placeholder="Email" class=" rounded-0 ">
+              <input type="password" name="password" placeholder="Password" class=" rounded-0 ">
+              <input type="password" name="password2" placeholder="Re-enter" class=" rounded-0 ">
+              <button class="submit-button d-flex" type="submit">Submit</button>
+              {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+              {% endif %}
+            
+        </div>
+    </form>
+</div>
+  </div>
+  
+  <!--Waves Container-->
+  <div>
+  <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+  <defs>
+  <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+  </defs>
+  <g class="parallax">
+  <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+  <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+  <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+  <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+  </g>
+  </svg>
+  </div>
+  <!--Waves end-->
+  
+  </div>
+  <!--Header ends-->
+  
+  <!--Content starts-->
+  <div class="content flex">
+    <p>StockTack </p>
+  </div>
+  <!--Content ends-->
+  </main>
+  <script src="{% static 'stock/js/registration.js' %}"></script>
+  <!-- <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
+  {% endblock content %}

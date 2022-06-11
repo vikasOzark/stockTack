@@ -1,9 +1,10 @@
-from pydoc import render_doc
-from django.shortcuts import render
+from django.contrib.auth import logout, login as auth_login, authenticate
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views import View
 from .news import  get_headlines
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -14,4 +15,61 @@ class IndexHomeView(View):
     headlines2 = headlines_get['articles'][1]
     def get(self, request):
         return render(request, self.template_name, {'headlines' : self.headlines,
-                                                        'headlines2' : self.headlines2})
+                                                    'headlines2' : self.headlines2})
+
+
+def register(request):
+    method = request.method
+
+    if method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+
+        if request.POST is not None:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists')
+                return redirect('register')
+
+            elif password != password2:
+                messages.error(request, 'Passwords do not match')
+                return redirect('register')
+
+            else:
+                user = User.objects.create_user(
+                    username=username, 
+                    password=password, 
+                    email=email, 
+                    first_name=first_name, 
+                    last_name=last_name
+                )
+
+                user.save()
+
+    return render(request, template_name='register.html')
+
+
+def login(request):
+    method = request.method
+
+    if method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        print(username, password)
+
+        user = authenticate(username=username, password=password)
+        print(user)
+        if user is not None:
+            auth_login(request, user)
+            print('logged in')
+            return redirect('index')
+        else:
+            messages.error(request, 'Invalid credentials')
+            return redirect('login')
+    
+    return render(request, template_name='login.html')

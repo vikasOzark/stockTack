@@ -108,14 +108,14 @@ p {
 
 .main{
   justify-items:center;
-  background-color:#2E0249;
+  background-color:#2e0249b8;
   height:400px;
   
 }
 
 input{
   border:0px;
-  border-bottom:2px solid #570A57;
+  border-bottom:2px solid #ffffff;
   margin-bottom:1rem;
   font-size:20pX;
   color:white;
@@ -129,12 +129,12 @@ input{
 }
 
 ::placeholder {
-  color: #F806CC;
+  color: #ffffff;
   opacity: 1; /* Firefox */
 }
 
 #email{
-  width:100%;
+  width:80%;
 }
 
 input:active{

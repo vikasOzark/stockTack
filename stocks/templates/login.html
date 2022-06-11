@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}login here{% endblock title %}
+{% block static %}<link rel="stylesheet" href="{% static 'stock/css/login.css' %}">{% endblock static %}
+
+{% block content %}
+
+<h1 class="text-primary d-flex justify-content-center mt-5">Login here</h1>
+  <div class="container">
+    
+      <div class="row main border p-2 rounded shadow-lg">
+      
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="col">
+
+                <input type="text" id="first_name" name="username" placeholder="Username" class=" rounded-0 ">
+                <input type="password" id="password" name="password" placeholder="Password" class=" rounded-0 ">
+            
+              </div>
+            <div class=" row btn-submit">
+              <div class="col-3">
+                <button class="submit-button border border-light rounded">Submit</button>
+                {% if messages %}
+                  <ul class="messages">
+                      {% for message in messages %}
+                      <li{% if message.tags %} class="{{ message.tags }} text-light"{% endif %}>{{ message }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+              </div>
+            </div>
+        </form>
+      
+  </div>
+</div>
+</div>
+
+{% endblock content %}
