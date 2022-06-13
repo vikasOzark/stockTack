@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home page{% endblock title %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'stock/css/portfolio.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+{% endblock static %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="portfolio-panel">
+            <div class="row">
+                <div class="col-4">
+                    <div class="portfolio-panel bg-light ">
+                        <h1 class="d-flex  justify-content-center ">Portfolio</h1>
+                        <div class="d-flex  justify-content-center">
+                            <div class="search-box">
+                                <button class="btn-search" id="search_vlue"><i class="bi bi-search"></i></button>
+                                <input type="text" name="search_value" id="stock_value" class="input-search" placeholder="Type to Search...">
+                              </div>
+                            </div> 
+                        </div>
+                    </div>
+                <div class="col-8 portfolio-panel " style="width: 66%;">
+                    <div class="row">
+                        <div class="col-4 text-light m-1 d-felx justify-content-center"><img class="rounded mx-auto d-block" src="{% static 'stock/images/tata-motor.png' %}" alt=""></div>
+                        <div class="col-7 text-light">TATA Mootors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'stock/js/portfolio.js' %}"></script>
+{% endblock content %}

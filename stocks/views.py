@@ -1,5 +1,6 @@
 from django.contrib.auth import logout, login as auth_login, authenticate
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views import View
@@ -75,3 +76,10 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return render(request,'login.html')
+
+def portfolio_page(request):
+    return render(request, 'portfolio.html')
+
+def get_stock_data(request):
+    print(request.GET)
+    return JsonResponse({'data': 'works'})
