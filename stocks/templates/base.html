@@ -25,14 +25,14 @@
         <div class="link">
           <ul class=" text-white ul-links">
             <li class="link-item "><a class="text-decoration-none text-light" href="{% url 'index' %}">Home</a></li>
-            <li  class="lst-child" >My Portfolio</li>
+            <li  class="lst-child" ><a class="text-decoration-none" href="{% url 'portfolio' %}">Portfolio</a></li>
           </ul>
         </div>
         <div class="auth-section mt-2 d-flex float-end">
           <ul class="text-dark float-end">
             {% if user.is_authenticated %}
             <li class="border border-login text-dark shadow-lg">
-              <a href="{% url 'logout' %}">Logout</a>
+              <a class="text-decoration-none href="{% url 'logout' %}">Logout</a>
             </li>
             {% else %}
             <li class="border border-login text-dark shadow-lg">

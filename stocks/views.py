@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views import View
 from .news import  get_headlines
+from .stock_search import get_stock_search
 from django.contrib import messages
 
 # Create your views here.
@@ -81,5 +82,7 @@ def portfolio_page(request):
     return render(request, 'portfolio.html')
 
 def get_stock_data(request):
-    print(request.GET)
-    return JsonResponse({'data': 'works'})
+    print(request.GET.get('search_value'))
+    data = get_stock_search(request.GET.get('search_value'))
+    
+    return JsonResponse({'data': data})
