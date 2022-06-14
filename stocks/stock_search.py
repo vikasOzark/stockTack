@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from idna import valid_contextj
 import requests
 import datetime
@@ -17,6 +18,9 @@ def get_stock_search(search_value, date_from=None, date_to=None):
         return response
         
     except:
-        return f'Error: { search_value } is not a valid search value'
+        return 'NOT_FOUND'
 
 
+# url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=RELIANCE.BSE&outputsize=full&apikey=demo'
+# response = requests.get(url).json()
+# print(response)

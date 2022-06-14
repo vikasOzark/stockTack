@@ -2,29 +2,27 @@
 {% load static %}
 {% block title %}Home page{% endblock title %}
 {% block static %}
-<link rel="stylesheet" href="{% static 'stock/css/portfolio_new.css' %}">
+<link rel="stylesheet" href="{% static 'stock/css/portfolio.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
 {% endblock static %}
 {% block content %}
 
-<section>
+<main>
     <div class="container">
         <div class="portfolio-panel">
             <div class="row">
                 <div class="col-4">
                     <div class="portfolio-panel bg-light ">
-                        <h1 class="d-flex  justify-content-center ">Portfolio</h1>
+                        <h1 class="d-flex  justify-content-center ">Adding stock</h1>
                         <div class="d-flex  justify-content-center">
                             <div class="search-box">
                                 <button class="btn-search" id="search_vlue"><i class="bi bi-search"></i></button>
                                 <input type="text" name="search_value" id="stock_value" class="input-search" placeholder="Type to Search...">
-                                
                             </div>
                         </div> 
-                            <div class="uk-alert-primary m-1" uk-alert>
-                                <a class="uk-alert-close" uk-close></a>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                            <div id="uk-alert">
+                                
                             </div>
                         </div>
                     </div>
@@ -37,7 +35,7 @@
             </div>
         </div>
     </div>
-</section>
+</main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'stock/js/portfolio.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit.min.js"></script>
