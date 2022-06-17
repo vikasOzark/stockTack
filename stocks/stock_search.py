@@ -15,6 +15,7 @@ def get_stock_search(search_value, date_from=None, date_to=None):
         url = f'https://api.polygon.io/v1/open-close/{ symbol }/{ previous_date }?adjusted=true&apiKey=U7mOPE6UZjmXOUDzWC84pNWz1hwJTDeC'
         response = requests.get(url).json()
 
+        print(response)
         return response
         
     except:

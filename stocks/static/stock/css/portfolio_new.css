@@ -51,9 +51,9 @@
   right: 0px;
   color:#ffffff ;
   background-color:transparent;
-  pointer-events: painted;  
+  /* pointer-events: painted;   */
 }
-.btn-search:focus ~ .input-search{
+/* .btn-search:focus ~ .input-search{
   width: 300px;
   border-radius: 5px;
   border-style: none;
@@ -61,13 +61,14 @@
   border-bottom:1px solid rgba(255,255,255,.5);
   transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
 }
+*/
 .input-search:focus{
   width: 300px;
   border-radius: 5px;
   background-color: #22a6b3;
   border-bottom:1px solid rgb(2, 2, 2);
   transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
-}
+} 
 
 .h-75{
   height: 150px;
