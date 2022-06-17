@@ -79,9 +79,29 @@ def logout_view(request):
         return render(request,'login.html')
 
 def portfolio_page(request):
-    return render(request, 'portfolio.html')
+    if request.method == 'POST':
+        print('in post method')
+        stock_name = request.POST.get('stock_name')
+        stock_date = request.POST.get('stock_date')
+        stock_quantity = request.POST.get('stock_quantity')
+
+        # getting the data with the date and stock name
+        previous_data = get_stock_search(stock_name, stock_date)
+
+        # getting the data without the date (previuos date)
+        
+        
+
+        
+    return render(request, 'test.html')
 
 def get_stock_data(request):
     data = get_stock_search(request.GET.get('search_value'))
     
     return JsonResponse({'data': data})
+
+def get_data(request):
+    if request.method == 'POST':
+        print(request.POST.get('stock_name'))
+
+    return render(request, 'test.html')

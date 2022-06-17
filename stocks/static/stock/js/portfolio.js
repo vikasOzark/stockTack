@@ -16,7 +16,7 @@ $('#search_vlue').click(function(){
 
             } else {
                 output = `
-                    <button on_click="get_stock_data()">
+       
                         <div class="uk-alert-primary m-1 p-1 uk-box-shadow-small"  uk-alert>
                             <a class="uk-alert-close" uk-close></a>
                             <div class="row stock-card rounded-2 ">
@@ -33,11 +33,12 @@ $('#search_vlue').click(function(){
                                     <div class=" uk-flex uk-inline-clip">
                                         <div class="uk-column-1-2 uk-text-success">`+data['data']['open']+`</div>
                                         <div class="uk-column-1-2 uk-text-danger">`+data['data']['close']+`</div>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </button>`;  
+                  `;  
            
            $('#uk-alert').html(output);           
             }
