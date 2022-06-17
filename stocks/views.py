@@ -7,6 +7,7 @@ from django.views import View
 from .news import  get_headlines
 from .stock_search import get_stock_search
 from django.contrib import messages
+from .models import MyPortfolio
 
 # Create your views here.
 
@@ -71,7 +72,7 @@ def login(request):
             messages.error(request, 'Invalid credentials')
             return redirect('login')
     
-    return render(request, template_name='login.html')
+    return render(request, template_name='portfolio.html')
 
 def logout_view(request):
     if request.method == "POST":
@@ -87,9 +88,34 @@ def portfolio_page(request):
 
         # getting the data with the date and stock name
         previous_data = get_stock_search(stock_name, stock_date)
+        closing_bal = previous_data['close']
+        print('closing_bal  :',closing_bal)
 
         # getting the data without the date (previuos date)
+        previous_data2 = get_stock_search(stock_name)
+        closing_bal2 = previous_data2['close']
+        print('closing_bal2  :',closing_bal2)
+
+        portfolio_model = MyPortfolio(
+            user=request.user, 
+            stock_name=stock_name,
+            stock_quantity=stock_quantity,
+        )
+
+        portfolio_model.save()
+
+        P_and_L = (float(closing_bal) - float(closing_bal2)) * float(stock_quantity)
+
+
+
+        if closing_bal < closing_bal2:
+            print('profit')
+        else:
+            print('loss')
         
+        print(f'{round(P_and_L,3)}')
+
+
         
 
         
