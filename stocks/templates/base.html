@@ -25,7 +25,7 @@
         <div class="link">
           <ul class=" text-white ul-links">
             <li class="link-item "><a class="text-decoration-none text-light" href="{% url 'index' %}">Home</a></li>
-            <li  class="lst-child" ><a class="text-decoration-none" href="{% url 'portfolio' %}">Portfolio</a></li>
+            <li  class="lst-child" ><a class="text-decoration-none text-light" href="{% url 'portfolio' %}">Portfolio</a></li>
           </ul>
         </div>
         <div class="auth-section mt-2 d-flex float-end">
@@ -39,7 +39,7 @@
               <a href="{% url 'login' %}">Login/SignUp</a>
             <!-- <li class="border border-login text-dark shadow-lg">LogIn</li> -->
             {% endif %}
-            <li class="text-white sign-up">welcome,  {{ request.user }}</li>
+            <li class="text-white sign-up">welcome, {{ request.user }}</li>
 
           </ul>
         </div>

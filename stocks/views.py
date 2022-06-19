@@ -104,7 +104,7 @@ def portfolio_page(request):
 
         P_and_L = (float(closing_bal) - float(closing_bal2)) * float(stock_quantity)
     
-    return render(request, 'test.html')
+    return render(request, 'portfolio.html')
 
 def get_stock_data(request):
     data = get_stock_search(request.GET.get('search_value'))
