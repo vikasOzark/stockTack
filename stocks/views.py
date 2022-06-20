@@ -96,7 +96,7 @@ def portfolio_page(request):
         # sving the data to the database
         if stock_date == '':
             messages.info(request, 'Please enter a date')
-            return 
+            return render(request, 'portfolio.html')
         else:
             portfolio_model = MyPortfolio(
                 user=request.user, 

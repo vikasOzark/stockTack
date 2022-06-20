@@ -12,6 +12,7 @@ def get_stock_search(search_value, date_from=None):
     
     previous_date = datetime.datetime.today() - datetime.timedelta(days=1)
     previous_date = previous_date.strftime('%Y-%m-%d')
+    print('enterd')
             
     
     if date_from is not None:
