@@ -39,7 +39,7 @@
               <a href="{% url 'login' %}">Login/SignUp</a>
             <!-- <li class="border border-login text-dark shadow-lg">LogIn</li> -->
             {% endif %}
-            <li class="text-white sign-up">welcome, {{ request.user }}</li>
+            <li class="text-white sign-up"><a href="{% url 'data_view' %}" class="text-decoration-none text-light"> welcome, {{ request.user }}</a></li>
 
           </ul>
         </div>
