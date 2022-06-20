@@ -11,6 +11,7 @@ $('#search_vlue').click(function(){
            },
            dataType: 'json',
            success: function(data){
+            console.table('data', data);
             if (data['data'] == 'NOT_FOUND'){
                 $('#uk-alert').html(`<div class="uk-alert-danger m-1 p-1 uk-box-shadow-small" uk-alert>Stock not found ! </div>`);
 

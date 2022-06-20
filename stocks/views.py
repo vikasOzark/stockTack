@@ -113,6 +113,7 @@ def portfolio_page(request):
 
 def get_stock_data(request):
     data = get_stock_search(request.GET.get('search_value'))
+    print('data : ', data)
     
     return JsonResponse({'data': data})
 
