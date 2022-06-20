@@ -43,3 +43,20 @@
   box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:8rem
+}
+.main-section{
+  width:78vh;
+  height:55vh;
+}
+.center-update{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -4rem;
+}
