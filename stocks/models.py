@@ -8,6 +8,10 @@ class MyPortfolio(models.Model):
     stock_name = models.CharField(max_length=20)
     stock_quantity = models.PositiveIntegerField()
     is_favorite = models.BooleanField(default=False)    
+    date = models.DateField(null=True)
+
+    def __str__(self):
+        return self.stock_name
     
     @property
     def stock_price(self):

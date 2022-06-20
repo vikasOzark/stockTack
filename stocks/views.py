@@ -94,14 +94,19 @@ def portfolio_page(request):
         closing_bal2 = previous_data2['close']
 
         # sving the data to the database
-        portfolio_model = MyPortfolio(
-            user=request.user, 
-            stock_name=stock_name,
-            stock_quantity=stock_quantity,
-        )
+        if stock_date == '':
+            messages.info(request, 'Please enter a date')
+            return 
+        else:
+            portfolio_model = MyPortfolio(
+                user=request.user, 
+                stock_name=stock_name,
+                stock_quantity=stock_quantity,
+                date = stock_date,
+            )
 
-        portfolio_model.save()
-
+            portfolio_model.save()
+        
         P_and_L = (float(closing_bal) - float(closing_bal2)) * float(stock_quantity)
     
     return render(request, 'portfolio.html')
