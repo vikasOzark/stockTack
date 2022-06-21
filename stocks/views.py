@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views import View
 from .news import  get_headlines
-from .stock_search import get_stock_search
+from .stock_search import get_stock_search, previous_date
 from django.contrib import messages
 from .models import MyPortfolio
 
@@ -112,7 +112,7 @@ def portfolio_page(request):
     return render(request, 'portfolio.html')
 
 def get_stock_data(request):
-    data = get_stock_search(request.GET.get('search_value'))
+    data = previous_date(request.GET.get('search_value'))
     print('data : ', data)
     
     return JsonResponse({'data': data})
