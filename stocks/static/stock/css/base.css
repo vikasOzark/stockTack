@@ -25,16 +25,7 @@ body{
     align-items:center;
   }
   
-  .stock-logo{
-    display:flex;
-    background-color:white;
-    border-radius:50%;
-    height:80px;
-    width:80px;
-    justify-content:center;
-    align-items:center;
-    margin:0.5rem;
-}
+
 
 
   /*  {

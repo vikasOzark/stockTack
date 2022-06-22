@@ -5,7 +5,14 @@ import datetime
 API_KEY_polygon =  'U7mOPE6UZjmXOUDzWC84pNWz1hwJTDeC'
 API_KEY_alphavantage = '2S3HAXUPTY554T7C'
 
-def previous_date(symbol):
+def get_symbol(stock_name):
+    url = f'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={ stock_name }&apikey={API_KEY_alphavantage}'
+    response = requests.get(url).json()
+    symbol = response.get('bestMatches')[0].get('1. symbol')
+    return symbol
+
+def previous_date(stock_name):
+    symbol = get_symbol(stock_name)
     try:
         url = f'https://api.polygon.io/v2/aggs/ticker/{symbol}/prev?adjusted=true&apiKey={API_KEY_polygon}'
         response = requests.get(url).json()    
@@ -17,10 +24,7 @@ def previous_date(symbol):
         return 'NOT_FOUND'
 
 def get_stock_search(search_value, date_from=None):
-
-    url = f'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={ search_value }&apikey={API_KEY_alphavantage}'
-    response = requests.get(url).json()
-    symbol = response.get('bestMatches')[0].get('1. symbol')
+    symbol = get_symbol(search_value)
 
     previous_date = datetime.datetime.today() - datetime.timedelta(days=1)
     previous_date = previous_date.strftime('%Y-%m-%d')

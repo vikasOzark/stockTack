@@ -19,6 +19,32 @@ class IndexHomeView(View):
     def get(self, request):
         return render(request, self.template_name, {'headlines' : self.headlines,
                                                     'headlines2' : self.headlines2})
+    def post(self, request):
+        stock_name = request.POST.get('stock_name')
+        stock_date = request.POST.get('stock_date')
+        stock_quantity = request.POST.get('stock_quantity')
+        purchase_price = request.POST.get('purchase_price')
+        # getting the data with the date and stock name
+        previous_data = get_stock_search(stock_name, stock_date)
+        closing_bal = previous_data['close']
+
+        # getting the data without the date (previuos date)
+        previous_data2 = get_stock_search(stock_name)
+        closing_bal2 = previous_data2['close']
+
+        # sving the data to the database
+        if stock_date == '':
+            messages.info(request, 'Please enter a date')
+            return render(request, 'portfolio.html')
+        else:
+            portfolio_model = MyPortfolio(
+                user=request.user, 
+                stock_name=stock_name,
+                stock_quantity=stock_quantity,
+                date = stock_date,
+            )
+
+            portfolio_model.save()
 
 
 def register(request):
@@ -80,34 +106,9 @@ def logout_view(request):
         return render(request,'login.html')
 
 def portfolio_page(request):
-    if request.method == 'POST':
-        stock_name = request.POST.get('stock_name')
-        stock_date = request.POST.get('stock_date')
-        stock_quantity = request.POST.get('stock_quantity')
-
-        # getting the data with the date and stock name
-        previous_data = get_stock_search(stock_name, stock_date)
-        closing_bal = previous_data['close']
-
-        # getting the data without the date (previuos date)
-        previous_data2 = get_stock_search(stock_name)
-        closing_bal2 = previous_data2['close']
-
-        # sving the data to the database
-        if stock_date == '':
-            messages.info(request, 'Please enter a date')
-            return render(request, 'portfolio.html')
-        else:
-            portfolio_model = MyPortfolio(
-                user=request.user, 
-                stock_name=stock_name,
-                stock_quantity=stock_quantity,
-                date = stock_date,
-            )
-
-            portfolio_model.save()
+    
         
-        P_and_L = (float(closing_bal) - float(closing_bal2)) * float(stock_quantity)
+        # P_and_L = (float(closing_bal) - float(closing_bal2)) * float(stock_quantity)
     
     return render(request, 'portfolio.html')
 
