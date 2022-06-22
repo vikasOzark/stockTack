@@ -18,7 +18,7 @@
 {% block content %}
 <!-- ========================== landing section =================================== -->
   <main class="container">
-    <section class="center-update" style="height:95vh">
+    <section class="center-update center" style="height:95vh">
       <div class="main-section  row">
         <div class="col-7  news-section border">
             <div class="row w-100 m-0 overflow-hidden p-1 news-card mb-1" style="height:80px;">
@@ -49,7 +49,7 @@
 
   <!-- =================== stock search section ========================================== -->
   
-  <main class="container">
+  <main class="container" id="section-stock-add">
     <section style="height:95vh;">
       <div class="search-section border d-flex justify-content-center align-self-center border pt-2 pb-2">
         <form action="">
@@ -67,20 +67,19 @@
           </div>
 
           <div class="input-div">
-            <h4 class="text-light">Save to your portfolio</h4 class="text-light">
-              <form action="" method="post">
+            <h4 class="text-light font-bold">Save to your portfolio</h4 class="text-light">
+              <form method="post" id="form-stock">
                 {% csrf_token %}
                 <!-- <label for="stock_name">Stock name</label> -->
                 <input class="text-input w-50 d-flex float-start mb-2"  id="stock_name" name="stock_name" placeholder="Stock name"  type="text">
 
                 <!-- <label for="stock_date">Purchased date</label> -->
-                <input class="text-input w-50 d-flex float-start mb-2" id="stock_date"  name="stock_date" placeholder="Purchased date formtarget="" type="date">
+                <input class="text-input w-50 d-flex float-start mb-2" id="stock_date"  name="stock_date" placeholder="Purchased date" type="date">
 
                 <!-- <label for="stock_price" >Purchased price</label> -->
-                <input class="text-input w-50 d-flex float-start mb-2" id="stock_price" name="stock_proce" placeholder="Purchased price" type="text">
-                <input class="text-input w-50 d-flex float-start mb-2" id="stock_price" name="stock_proce" placeholder="Purchased quantity" type="number">
-                <button class="float-end submit-btn text-decoration-none" type="submit" id = "submit-form" >Save</button>
-              </form>
+                <input class="text-input w-50 d-flex float-start mb-2" id="stock_price" name="stock_price" placeholder="Purchased price" type="text">
+                <input class="text-input w-50 d-flex float-start mb-2" id="stock_quantity" name="stock_quantity" placeholder="Purchased quantity" type="number">
+                <a class="float-end submit-btn text-decoration-none" id = "submit-form" >Save</a>
           </div>
           
         </div>

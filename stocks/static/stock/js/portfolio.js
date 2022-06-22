@@ -3,7 +3,7 @@ $('#search_vlue').click(function(){
 
    if(search_val != ''){
        $.ajax({
-           url: 'portfolio-stock/',
+           url: 'stock-data/',
            type: 'GET',
            data: {
                'search_value': search_val
@@ -53,5 +53,32 @@ $('#search_vlue').click(function(){
 
 var submit = document.getElementById('submit-form');
 submit.addEventListener('click', function(){
-    
+    var stock_name = $('#stock_name').val();
+    var stock_price = $('#stock_price').val();
+    var stock_quantity = $('#stock_quantity').val();
+    var stock_date = $('#stock_date').val();
+    var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
+
+    $.ajax({
+        url: 'portfolio-stock/',
+        type: 'POST',   
+        data: {
+            'stock_name': stock_name,
+            'stock_price': stock_price,
+            'stock_quantity': stock_quantity,
+            'stock_date': stock_date,
+            'csrfmiddlewaretoken': token ,
+            },
+
+        dataType: 'json',
+        success: function(data){
+            var _status = data['success']; 
+            var message = data['status'];
+
+            if(data['status'] == 200){
+                alert(message);
+            };
+            $('#form-stock')[0].reset();
+        }
+    })
 })

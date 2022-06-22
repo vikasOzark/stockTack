@@ -19,32 +19,7 @@ class IndexHomeView(View):
     def get(self, request):
         return render(request, self.template_name, {'headlines' : self.headlines,
                                                     'headlines2' : self.headlines2})
-    def post(self, request):
-        stock_name = request.POST.get('stock_name')
-        stock_date = request.POST.get('stock_date')
-        stock_quantity = request.POST.get('stock_quantity')
-        purchase_price = request.POST.get('purchase_price')
-        # getting the data with the date and stock name
-        previous_data = get_stock_search(stock_name, stock_date)
-        closing_bal = previous_data['close']
-
-        # getting the data without the date (previuos date)
-        previous_data2 = get_stock_search(stock_name)
-        closing_bal2 = previous_data2['close']
-
-        # sving the data to the database
-        if stock_date == '':
-            messages.info(request, 'Please enter a date')
-            return render(request, 'portfolio.html')
-        else:
-            portfolio_model = MyPortfolio(
-                user=request.user, 
-                stock_name=stock_name,
-                stock_quantity=stock_quantity,
-                date = stock_date,
-            )
-
-            portfolio_model.save()
+    
 
 
 def register(request):
@@ -105,18 +80,37 @@ def logout_view(request):
         logout(request)
         return render(request,'login.html')
 
-def portfolio_page(request):
-    
-        
-        # P_and_L = (float(closing_bal) - float(closing_bal2)) * float(stock_quantity)
-    
-    return render(request, 'portfolio.html')
-
-def get_stock_data(request):
+def get_data(request):
     data = previous_date(request.GET.get('search_value'))
     print('data : ', data)
     
     return JsonResponse({'data': data})
+
+def data_saving(request):
+    # data = previous_date(request.GET.get('search_value'))
+    if request.method == 'POST': 
+        stock_name = request.POST.get('stock_name')
+        stock_date = request.POST.get('stock_date')
+        stock_quantity = request.POST.get('stock_quantity')
+        purchase_price = request.POST.get('stock_price')
+
+        # sving the data to the database
+        if stock_date == '':
+            messages.info(request, 'Please enter a date')
+            return render(request, 'portfolio.html')
+        else:
+            portfolio_model = MyPortfolio(
+                user=request.user, 
+                stock_name=stock_name,
+                stock_quantity=stock_quantity,
+                date = stock_date,
+                purchased_price = purchase_price
+            )
+
+            portfolio_model.save()
+        return JsonResponse({'success': 'data saved',
+                             'status':200
+                                })
 
 def data_view(request):
     data = MyPortfolio.objects.filter(user=request.user)
