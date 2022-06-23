@@ -12,37 +12,38 @@
   .display{
     display: none;
   }
+  .responsive {
+    width: 100%;
+  max-width: 400px;
+  height: auto;
+}
 </style>
 
 {% endblock static %}
 {% block content %}
 <!-- ========================== landing section =================================== -->
-  <main class="container">
-    <section class="center-update center" style="height:95vh">
-      <div class="main-section  row">
-        <div class="col-7  news-section border">
-            <div class="row w-100 m-0 overflow-hidden p-1 news-card mb-1" style="height:80px;">
-              <div class="col-3 bg-light img-fluid d-flex w-auto h-100 items-stretch border" style="height:auto"><img src="{{headlines.urlToImage}}" alt="content picture "></div>
-              <div class="col-8 text-dark " style="height:auto">{{headlines.content}}<span class="text"><a href="#">read more -></a></span></div>
+  <main class="container ">
+    <section class="mb-5">
+      <div class="row">
+        <!-- ========= -->
+        {% for news in news_list %}
+          {% if news.content != None %}
+          <div class="col-md-6 mt-3  ">
+            <div class="card shadow-lg">
+              <div class="card-header bg-{{randon_color|random}}">
+                Featured
+              </div>
+              <img src="{{news.urlToImage}}" class="responsive" alt="">
+              <div class="card-body">
+                <h5 class="card-title">{{ news.title | title }}</h5>
+                <p class="card-text">{{ news.content| truncatechars:199 }}.</p>
+                <a href="{{ news.url }}" class="btn btn-primary">Read more</a>
+              </div>
             </div>
-            <div class="row w-100 m-0 d-flex p-1 news-card2 mb-1" style="height:80px;">
-              <div class="col-3 bg-light img-fluid d-flex w-auto h-100 items-stretch" style="height:auto"><img src="{{headlines2.urlToImage}}" alt="content picture "></div>
-              <div class="col-8" style="height:auto">{{headlines2.content}}<span class="text"><a href="#">read more -></a></span></div>
-            </div>
-        </div>
-        <div class="col-4  border favorite-section border">
-            <div class="head d-flex justify-content-center">
-                Favorite section
-            </div>
-            <div class="row border stock-card rounded-2 ">
-                <div class="col-4 stock-logo">
-                    LOGO
-                </div>
-                <div class="col-8">
-                    ADANI POWER
-                </div>
-            </div>
-        </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+        <!-- ========== -->
       </div>
     </section>
   </main>
