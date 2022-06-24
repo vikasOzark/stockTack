@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Home page{% endblock title %}
 {% block static %}
-<link rel="stylesheet" href="{% static 'stock/css/index.css' %}">
+<link rel="stylesheet" href="{% static 'stock/css/index_n.css' %}">
 <link rel="stylesheet" href="{% static 'stock/css/portfolio.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
@@ -28,10 +28,10 @@
         <!-- ========= -->
         {% for news in news_list %}
           {% if news.content != None %}
-          <div class="col-md-6 mt-3  ">
+          <div class="col-md-3 mt-3 border-0 ">
             <div class="card shadow-lg">
-              <div class="card-header bg-{{randon_color|random}}">
-                Featured
+              <div class="card-header text-light" style="background-color: {{random_color|random}};">
+                <h6 class="uk-heading-bullet">Featured</h6>
               </div>
               <img src="{{news.urlToImage}}" class="responsive" alt="">
               <div class="card-body">
@@ -46,8 +46,25 @@
         <!-- ========== -->
       </div>
     </section>
-  </main>
 
+    <div uk-alert class="rounded shadow-lg">
+      <h3>My investings</h3>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-3 border p-3  shadow bg-card-ins rounded m-2">
+          <b>Total investments : <span>150,56,6</span></b>
+        </div>
+        <div class="col-md-3 border p-3 shadow  bg-card-ins rounded m-2">
+          <b>Current position : <span>125000</span></b>
+        </div>
+        <div class="col-md-3 border p-3 shadow  bg-card-ins rounded m-2">
+          <b>Total P&L : <span>1200</span></b>
+        </div>
+      </div>
+
+    </div>
+    
+  </main>
+  <script type="text/javascript" src="https://cdn.finage.co.uk/single-ticker/main.js"></script>
   <!-- =================== stock search section ========================================== -->
   
   <main class="container" id="section-stock-add">

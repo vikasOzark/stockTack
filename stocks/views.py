@@ -5,9 +5,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views import View
 from .news import  get_headlines
-from .stock_search import get_stock_search, previous_date
+from .stock_search import  previous_date
 from django.contrib import messages
 from .models import MyPortfolio
+import random
 
 # Create your views here.
 
@@ -19,16 +20,15 @@ class IndexHomeView(View):
 
         news_list = []
 
-        randon_color = ['success', 'info', 'warning', 'danger', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'primary', 'secondary', ]
+        # randon_color = ['#'+''.join([random.choice('9876543210ABCDEF') for j in range(6)]) for i in range(10)]
+        random_color = ['#39CCCC' ,'#0074D9' ,'#B10DC9' ,'#4169E1' ,'#6A5ACD' ,'#EE82EE']
 
         for news in range(len(headlines_get['articles'])):
             news_list.append(headlines_get['articles'][news])
 
         print(len(news_list))
-        return render(request, self.template_name, {'news_list' : news_list,'randon_color':randon_color})
+        return render(request, self.template_name, {'news_list' : news_list,'random_color':random_color})
     
-
-
 def register(request):
     method = request.method
 
@@ -89,8 +89,7 @@ def logout_view(request):
 
 def get_data(request):
     data = previous_date(request.GET.get('search_value'))
-    print('data : ', data)
-    
+    print('in view : ',data)
     return JsonResponse({'data': data})
 
 def data_saving(request):

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .stock_search import get_stock_search
+from .stock_search import previous_date
 # Create your models here.
 
 class MyPortfolio(models.Model):
@@ -17,7 +17,7 @@ class MyPortfolio(models.Model):
     @property
     def stock_price(self):
         try:
-            stock_price = get_stock_search(self.stock_name)
+            stock_price = previous_date(self.stock_name)
             print(stock_price)
             stock_price = stock_price['close']
 

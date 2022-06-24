@@ -39,3 +39,33 @@
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
+
+.bg-color-6{
+  background-color: #39CCCC;
+}
+
+.bg-color-5{
+  background-color: #0074D9;
+}
+
+.bg-color-4{
+  background-color: #B10DC9;
+}
+
+.bg-color-3{
+  background-color: #4169E1;
+}
+
+.bg-color{
+  background-color: #6A5ACD;
+}
+
+.bg-color-1{
+  background-color: #EE82EE;
+}
+
+.bg-card-ins{
+  background-color: #6A5ACD;
+  opacity: 1;
+  color:white;
+}
