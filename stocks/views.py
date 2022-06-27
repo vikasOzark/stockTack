@@ -9,16 +9,19 @@ from .stock_search import  previous_date
 from django.contrib import messages
 from .models import MyPortfolio
 import random
+from .calculate import stock_value
 
 # Create your views here.
 
 class IndexHomeView(View):
-    template_name = 'index.html'
+    template_name = 'index_.html'
 
     def get(self, request):
         headlines_get = get_headlines()
 
         news_list = []
+        data = stock_value(request)
+        print(data)
 
         # randon_color = ['#'+''.join([random.choice('9876543210ABCDEF') for j in range(6)]) for i in range(10)]
         random_color = ['#39CCCC' ,'#0074D9' ,'#B10DC9' ,'#4169E1' ,'#6A5ACD' ,'#EE82EE']
@@ -26,8 +29,13 @@ class IndexHomeView(View):
         for news in range(len(headlines_get['articles'])):
             news_list.append(headlines_get['articles'][news])
 
-        print(len(news_list))
-        return render(request, self.template_name, {'news_list' : news_list,'random_color':random_color})
+        context = {
+            'news_list' : news_list,
+            'random_color':random_color,
+            'stock_data':data
+            }
+
+        return render(request, self.template_name, context=context )
     
 def register(request):
     method = request.method

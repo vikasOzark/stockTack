@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home page{% endblock title %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'stock/css/index.css' %}">
+<link rel="stylesheet" href="{% static 'stock/css/portfolio.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<style>
+  .display{
+    display: none;
+  }
+  .responsive {
+    width: 100%;
+  max-width: 400px;
+  height: auto;
+  
+}
+
+.div-section {
+        border-radius: 60% 40% 40% 20% / 70% 50% 30% 25%;
+      }
+</style>
+
+{% endblock static %}
+{% block content %}
+<!-- ========================== landing section =================================== -->
+  <main class="container position-relative" >
+    <section class="mb-5 position-relative">
+      <div class="row">
+        <!-- ========= -->
+        {% for news in news_list %}
+          {% if news.content != None %}
+          <div class="col-md-3 mt-3 border-0  news-card-h ">
+            <div class="card shadow-lg">
+              <div class="card-header text-light" style="background-color: {{random_color|random}};">
+                <h6 class="uk-heading-bullet">Featured</h6>
+              </div>
+              <img src="{{news.urlToImage}}" class="responsive" alt="">
+              <div class="card-body">
+                <h5 class="card-title">{{ news.title | title }}</h5>
+                <p class="card-text">{{ news.content| truncatechars:150 }}.</p>
+                <a href="{{ news.url }}" class="btn btn-primary">Read more</a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+        <!-- ========== -->
+      </div>
+    </section>
+
+    <div uk-alert class="rounded shadow-lg mb-5">
+      <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="translate(571.786 -885.395)"><path fill="none" stroke="#373449" d="M-546.28729 900.90849c0 5.3063 0 8.675 0 13.9813l-19.00223 0c0-5.321 0-8.6063 0-13.9273m0-4.0216c0-2.3351 0-6.7058 0-9.0409l19.00223 0c0 2.3351 0 6.6076 0 8.9427M-562.85202 905.89999l11.06606 0M-562.78952 908.89999l13.00356 0M-562.78952 911.89999l14 0"/><rect width="2" height="2" x="-563.286" y="890.9" fill="#00d1b6" stroke="#373449" stroke-miterlimit="3.9"/><rect width="11" height="2" x="-559.286" y="890.9" fill="#ff5a67" stroke="#373449" stroke-miterlimit="3.9"/><rect width="14" height="4" x="-567.286" y="896.925" fill="#00d1b6" stroke="#373449" stroke-miterlimit="3.9"/><rect width="7" height="4" x="-551.286" y="896.925" fill="#ff5a67" stroke="#373449" stroke-miterlimit="3.9"/><path fill="none" stroke="#373449" d="m -549.02815,899.78549 1.24219,-1.323 1.24219,1.323"/></g></svg></span> My investings</h3>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-3 border p-3 text-light shadow bg-card-ins rounded m-2">
+          <b> Total investments : <span>{{stock_data.total_stock_value}}</span></b>
+        </div>
+        <div class="col-md-3 border p-3 shadow text-light  bg-card-ins rounded m-2">
+          <b>Current position : <span>{{stock_data.current_value}}</span></b>
+        </div>
+        <div class="col-md-3 border p-3 shadow text-light  bg-card-ins rounded m-2">
+          <b>Total P&L : <span>{{stock_data.total_PL}}</span></b>
+        </div>
+      </div>
+
+    </div>
+    
+  </main>
+  <script type="text/javascript" src="https://cdn.finage.co.uk/single-ticker/main.js"></script>
+  <!-- =================== stock search section ========================================== -->
+  
+  <main class="container mt-2" id="section-stock-add">
+    <section style="height:95vh;">
+      <div class="search-section border d-flex justify-content-center align-self-center border pt-2 pb-2">
+        <form action="">
+          <input class=" search-input uk-form-width-medium rounded  align-items-center" type="text" id="stock_value" placeholder="ex: tata motors">
+          <a class="d-inline-block  flex-wrap submit-btn text-decoration-none" id = "search_vlue" ><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="translate(0 -1020.362)"><g transform="translate(1.91 114.811) scale(.88793)"><path fill="none" stroke="#2dbca4" stroke-linecap="round" stroke-linejoin="round" d="m 12.691117,1035.101 2.509332,-2.4667 0.716953,0.7048 1.433904,-1.4095 0.716952,0.7047 2.867809,-2.819"/><path fill="none" stroke="#2dbca4" stroke-linecap="round" stroke-linejoin="round" d="m 19.641238,1028.9333 2,0 0,2"/><path fill="none" stroke="#406b95" stroke-linecap="round" stroke-linejoin="round" d="m 12.346439,1028.3057 0.0947,6.8004 3.99288,0 5.190513,0"/></g><path fill="#ee7581" d="m 10.075288,1040.3585 -1.3635814,2.3588 -0.8535939,1.4767 -0.7242952,1.253 -0.6146768,1.0632 -1.1803128,2.0418 c -0.4271741,0.7388 -0.1761648,1.6768 0.5627885,2.1029 0.738942,0.426 1.6778335,0.1744 2.1049578,-0.5646 l 4.7363978,-8.1936"/><rect width="4.409" height="4.912" x="-533.139" y="891.757" fill="#2dbca4" stroke="#105286" stroke-linejoin="round" transform="matrix(-.8663 -.49953 -.50047 .86575 0 0)"/><path fill="#2dbca4" d="m 17.338193,1022.8634 a 8.3558581,8.3662335 60.925475 0 0 -7.4412789,4.1819 8.3558581,8.3662335 60.925475 0 0 3.0552819,11.4156 8.3558581,8.3662335 60.925475 0 0 11.425867,-3.0655 8.3558581,8.3662335 60.925475 0 0 -3.055282,-11.4157 8.3558581,8.3662335 60.925475 0 0 -3.984188,-1.1156 z m -0.03675,1.54 a 6.8166214,6.8250857 60.924883 0 1 3.250667,0.9093 6.8166214,6.8250857 60.924883 0 1 2.491959,9.3136 6.8166214,6.8250857 60.924883 0 1 -9.322012,2.5004 6.8166214,6.8250857 60.924883 0 1 -2.491957,-9.3137 6.8166214,6.8250857 60.924883 0 1 6.071443,-3.4095 z"/><path fill="none" stroke="#105286" stroke-linejoin="round" d="m -524.11583,884.78436 a 6.8188581,6.8228512 0 0 1 -5.96929,6.76969 6.8188581,6.8228512 0 0 1 -7.45673,-5.08279 6.8188581,6.8228512 0 0 1 4.11119,-8.03624 6.8188581,6.8228512 0 0 1 8.48117,3.08029" transform="matrix(-.8663 -.49953 -.50047 .86575 0 0)"/><path fill="none" stroke="#105286" stroke-linejoin="round" d="m 10.075288,1040.3585 -1.3635812,2.3588 m -0.8536438,1.4766 -0.2668781,0.4617 m -0.3012652,0.521 -0.156102,0.2704 -0.6146769,1.0632 -1.1803128,2.0418 c -0.4271741,0.7388 -0.1761649,1.6768 0.5627885,2.1029 0.738942,0.426 1.6777836,0.1743 2.1049579,-0.5646 l 4.7363976,-8.1936"/><ellipse cx="-530.935" cy="884.784" fill="none" stroke="#105286" stroke-linejoin="round" rx="8.359" ry="8.363" transform="matrix(-.8663 -.49953 -.50047 .86575 0 0)"/></g></svg></span> Go</a>
+        </form>
+      </div>
+
+      <div class="center">
+        <div class="main-section row rounded p-2 shadow-lg bg-primary w-75 d-flex justify-content-around">
+          <div class="" id="uk-alert" >
+            <!-- =====  -->
+            
+            <!-- ===== -->
+          </div>
+
+          <div class="input-div">
+            <h4 class="text-light font-bold">Save to your portfolio</h4>
+              <form method="post" id="form-stock">
+                {% csrf_token %}
+                <!-- <label for="stock_name">Stock name</label> -->
+                <input class="text-input w-50 d-flex float-start mb-2"  id="stock_name" name="stock_name" placeholder="Stock name"  type="text">
+
+                <!-- <label for="stock_date">Purchased date</label> -->
+                <input class="text-input w-50 d-flex float-start mb-2" id="stock_date"  name="stock_date" placeholder="Purchased date" type="date">
+
+                <!-- <label for="stock_price" >Purchased price</label> -->
+                <input class="text-input w-50 d-flex float-start mb-2" id="stock_price" name="stock_price" placeholder="Purchased price" type="text">
+                <input class="text-input w-50 d-flex float-start mb-2" id="stock_quantity" name="stock_quantity" placeholder="Purchased quantity" type="number">
+                <a class="float-end submit-btn text-decoration-none" id = "submit-form" >Save</a>
+                <span class=" d-flex float-end d-block p-2 m-2 border rounded">Saved</span>
+          </div>
+          
+        </div>
+      </div>
+      
+    </section>
+  </main>
+
+  </div>
+
+
+<!-- <script src="{% static 'stock/js/index.js' %}"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'stock/js/portfolio_v2.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit-icons.min.js"></script>
+
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+</script>
+ 
+ <!-- <script defer src="https://pyscript.net/alpha/pyscript.js"></script> -->
+  {% endblock content %}

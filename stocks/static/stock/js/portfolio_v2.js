@@ -36,6 +36,14 @@ $('#search_vlue').click(function(){
    };
 })
 
+// UIkit.notify({
+//     message : 'Bazinga!',
+//     status  : 'primary',
+//     timeout : 5000,
+//     pos     : 'top-center'
+// });
+
+
 var submit = document.getElementById('submit-form');
 submit.addEventListener('click', function(){
     var stock_name = $('#stock_name').val();
@@ -57,13 +65,15 @@ submit.addEventListener('click', function(){
 
         dataType: 'json',
         success: function(data){
-            var _status = data['success']; 
-            var message = data['status'];
+            var message = data['success']; 
+            var _status = data['status'];
 
-            if(data['status'] == 200){
+            if(_status == 200){
                 alert(message);
             };
             $('#form-stock')[0].reset();
+            $('#stock_value').val('');
+
         }
     })
 })

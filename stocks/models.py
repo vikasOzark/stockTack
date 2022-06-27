@@ -9,7 +9,7 @@ class MyPortfolio(models.Model):
     stock_quantity = models.PositiveIntegerField()
     is_favorite = models.BooleanField(default=False)    
     date = models.DateField(null=True)
-    purchased_price = models.IntegerField(null=True)
+    purchased_price = models.FloatField(null=True)
 
     def __str__(self):
         return self.stock_name
