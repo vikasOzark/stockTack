@@ -1,22 +1,7 @@
-import websocket
+import pandas as pd
+import numpy as np
 
-def on_message(ws, message):
-    print(message)
+file_path = '/home/vikas/Desktop/Book.xlsx'
 
-def on_error(ws, error):
-    print(error)
-
-def on_close(ws):
-    print("### closed ###")
-
-def on_open(ws):
-    ws.send('{"type":"subscribe","symbol":"TATAMOTORS"}')
-
-if __name__ == "__main__":
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("wss://ws.finnhub.io?token=casit42ad3ifjkt1aan0",
-                              on_message = on_message,
-                              on_error = on_error,
-                              on_close = on_close)
-    ws.on_open = on_open
-    ws.run_forever()
+df = pd.read_excel(io=file_path, sheet_name=0, usecols='A', index_col=0)
+print(df.head(5))  # print first 5 rows of the dataframe
