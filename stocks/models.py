@@ -11,6 +11,7 @@ class MyPortfolio(models.Model):
     date = models.DateField(null=True)
     purchased_price = models.FloatField(null=True)
 
+
     def __str__(self):
         return self.stock_name
     
@@ -24,3 +25,5 @@ class MyPortfolio(models.Model):
             return self.stock_quantity * stock_price
         except:
             return 'NOT_FOUND'
+class excel_upload(models.Model):
+    excel_upload = models.FileField(upload_to='excel_upload/')

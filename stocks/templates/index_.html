@@ -106,15 +106,31 @@
                     <!-- <a class=" submit-btn text-decoration-none" id = "submit-form" >Save</a> -->
                   </form>
                 </div>
-                <hr class="text-light">
-                   <h6 class="text-light font-bold fw-bold">Export with Excel file</h6> 
-                   <a class="border-0 span-file ml-2 p-2 rounded font-bold bg-light text-decoration-none" href="stocks/static/stock/images/tata-motors.png" download="stocks.png" >Get the Format</a>
-                   <input class="border ml-2 p-2 rounded border-1 font-bold text-light" type="file">
-                   <a class="btn btn-danger" role="button" href="stocks/static/stock/images/tata-motors.png"
-   download>
-  Download
-</a>
+                
                 <a class=" submit-btn btn-bottom text-decoration-none" id="submit-form">Save</a>
+                <hr class="text-light">
+                  <a class="text-light font-bold fw-bold" href="#modal-center" uk-toggle > Export with Excel file</a> 
+                  
+                  <!-- ===== -->
+                  <!-- <a class="uk-button uk-button-default" href="#modal-center" uk-toggle>Open</a> -->
+
+                <div id="modal-center" class="uk-flex-top" uk-modal>
+                    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                        <button class="uk-modal-close-default" type="button" uk-close></button>
+
+                        <div class="row p-1">
+                          <div class="col-md-12 p-1 "> 
+                            <!-- <form action="" method="post"> -->
+                              <a class="border border-primary span-file m-2 p-2 rounded font-bold bg-light text-decoration-none" href="stocks/static/stock/images/tata-motors.png" download="stocks.png" >Get the Format</a><span uk-tooltip="title: Download the data format before uploading; pos: right" uk-icon="info"></span>
+                              <input class="border  m-2 p-2 rounded border-1 w-75 font-bold text-light" type="file">
+                              <a class="submit-btn btn-botto text-decoration-none d-flex float-end m-1" href="#">Save</a> 
+                            <!-- </form> -->
+                          </div>
+                        </div>     
+                    </div>
+                </div>
+                  <!-- ==== -->
           </div>
           
         </div>

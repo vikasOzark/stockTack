@@ -77,3 +77,12 @@ submit.addEventListener('click', function(){
         }
     })
 })
+
+var file_input = document.getElementById('file-input');
+document.getElementById('file-input').addEventListener('click', function(){
+    if (file_input.value == ''){
+        alert('Please select a file');
+    } else {
+        
+    }
+}
