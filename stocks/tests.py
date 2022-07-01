@@ -1,8 +1,4 @@
-import pandas as pd
-import numpy as np
+x = [['01.06.2022', 266.0, 130.0], ['02.06.2022', 266.0, 130.0], ['07.06.2022', 266.0, 130.0]]
 
-file_path = '/home/vikas/Desktop/Book.xlsx'
-
-df = pd.read_excel(io=file_path, sheet_name=0)
-print('====> :',df['A']) 
-
+for i in range(len(x)):
+    print(i)

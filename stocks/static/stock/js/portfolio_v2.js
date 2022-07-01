@@ -78,39 +78,6 @@ submit.addEventListener('click', function(){
     })
 })
 
-// var file_input = document.getElementById('file-input');
-// document.getElementById('file-input').addEventListener('click', function(){
-//     if (file_input.value == ''){
-//         alert('Please select a file');
-//     } else {
-//         var file_data = $('#file-input').prop('files')[0];
-//         var form_data = new FormData();
-//         form_data.append('file', file_data);
-//         form_data.append('csrfmiddlewaretoken', $('input[name="csrfmiddlewaretoken"]').attr('value'));
-//         $.ajax({
-//             url: 'excel_upload/',
-//             type: 'POST',
-//             data: form_data,
-//             contentType: false,
-//             cache: false,
-//             processData: false,
-//             dataType: 'json',
-//             success: function(data){
-//                 var message = data['success']; 
-//                 var _status = data['status'];
-
-//                 if(_status == 200){
-//                     alert(message);
-//                 } else {
-//                     alert(message);
-//                 }
-//                 $('#form-stock')[0].reset();
-//                 $('#stock_value').val('');
-//             }
-//         })
-//     }
-// })
-
 var upload_btn  = document.getElementById('download-btn');
 upload_btn.addEventListener('click', function(){
 
@@ -121,4 +88,21 @@ upload_btn.addEventListener('click', function(){
             alert('Excel file downloded successfully');
         }
     });
+})
+
+var upload_btn  = document.getElementById('upload-btn');
+upload_btn.addEventListener('click', function(){
+    var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
+    var file_data = $('#file_data');
+    alert(file_data);
+    console.log(file_data);
+
+
+    // $.ajax({
+    //     url : 'excel_upload/',
+    //     type : 'POST',
+    //     success : function(data) {
+    //         alert('Excel file downloded successfully');
+    //     }
+    // });
 })

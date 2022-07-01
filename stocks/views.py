@@ -1,13 +1,13 @@
 from django.contrib.auth import logout, login as auth_login, authenticate
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views import View
 from .news import  get_headlines
 from .stock_search import  previous_date
 from django.contrib import messages
-from .models import MyPortfolio, excel_upload
+from .models import MyPortfolio, Excel_Upload
 import random
 from .calculate import stock_value
 from .serializers import StockSerializer
@@ -150,9 +150,28 @@ class ExportImport(View):
         print(serializer.data)
         df = pd.DataFrame(serializer.data)
         print(df)
-        df.to_excel(f'/stock-data{random.randint(1,10)}.xlsx',encoding='UTF-8', index=False)
+        df.to_excel(f'excel-file/stock-data{random.randint(1,10)}.xlsx',encoding='UTF-8', index=False)
         return JsonResponse(df.to_json(), safe=False)
 
     def post(self, request):
-        excel_upload = excel_upload(excel_upload=request.FILES.get('file'))
-        df = pd.read_csv(excel_upload.excel_upload.path)
+        print('in post :', request.FILES)
+
+        file = request.FILES.get('file')
+        df = pd.read_excel(file)
+        sheet_values = df.values.tolist()
+        print('sheet_values : ', sheet_values)
+        for index in range(len(sheet_values)):
+            for row in sheet_values[index]:
+                print(row)
+                portfolio_model = MyPortfolio(
+                    user=request.user, 
+                    stock_name=row[1],
+                    stock_quantity=row[2],
+                    date = row[4],
+                    purchased_price = row[5]
+                )
+
+                portfolio_model.save()
+
+        return JsonResponse({'success': 'data saved',})
+
