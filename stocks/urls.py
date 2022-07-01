@@ -10,5 +10,6 @@ urlpatterns = [
     path('portfolio-stock/', views.data_saving, name='portfolio-stock'),
     # path('get-data/', views.get_data, name='get-data'),
     path('data_view/', views.data_view, name='data_view'),
+    path('excel_upload/', views.ExportImport.as_view(), name='excel_upload'),
 ]
 

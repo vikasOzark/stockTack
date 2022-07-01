@@ -7,9 +7,15 @@ from django.views import View
 from .news import  get_headlines
 from .stock_search import  previous_date
 from django.contrib import messages
-from .models import MyPortfolio
+from .models import MyPortfolio, excel_upload
 import random
 from .calculate import stock_value
+from .serializers import StockSerializer
+import pandas as pd
+from django.http import JsonResponse
+import random
+
+
 
 # Create your views here.
 
@@ -129,3 +135,24 @@ def data_saving(request):
 def data_view(request):
     data = MyPortfolio.objects.filter(user=request.user)
     return render(request, 'data_view.html', {'data': data})
+
+def excel_upload(request):
+    if request.method == 'GET':
+        file = request.FILES.get('file')    
+        print(file)
+        return render(request, 'index_.html')
+    return render(request, 'index_.html')
+
+class ExportImport(View):
+    def get(self, request):
+        stock_object = MyPortfolio.objects.filter(user=request.user)
+        serializer = StockSerializer(stock_object, many=True,)
+        print(serializer.data)
+        df = pd.DataFrame(serializer.data)
+        print(df)
+        df.to_excel(f'/stock-data{random.randint(1,10)}.xlsx',encoding='UTF-8', index=False)
+        return JsonResponse(df.to_json(), safe=False)
+
+    def post(self, request):
+        excel_upload = excel_upload(excel_upload=request.FILES.get('file'))
+        df = pd.read_csv(excel_upload.excel_upload.path)
