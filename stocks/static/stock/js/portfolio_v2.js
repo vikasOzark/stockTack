@@ -90,19 +90,11 @@ upload_btn.addEventListener('click', function(){
     });
 })
 
-var upload_btn  = document.getElementById('upload-btn');
-upload_btn.addEventListener('click', function(){
-    var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
-    var file_data = $('#file_data');
-    alert(file_data);
-    console.log(file_data);
+// var upload_btn  = document.getElementById('upload-btn');
+// upload_btn.addEventListener('click', function(){
+//     var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
+//     var file_data = $('#file_data');
+//     alert(file_data);
+//     console.log(file_data);
 
-
-    // $.ajax({
-    //     url : 'excel_upload/',
-    //     type : 'POST',
-    //     success : function(data) {
-    //         alert('Excel file downloded successfully');
-    //     }
-    // });
-})
+// })

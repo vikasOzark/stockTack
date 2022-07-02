@@ -136,42 +136,27 @@ def data_view(request):
     data = MyPortfolio.objects.filter(user=request.user)
     return render(request, 'data_view.html', {'data': data})
 
-def excel_upload(request):
-    if request.method == 'GET':
-        file = request.FILES.get('file')    
-        print(file)
-        return render(request, 'index_.html')
-    return render(request, 'index_.html')
-
 class ExportImport(View):
     def get(self, request):
         stock_object = MyPortfolio.objects.filter(user=request.user)
         serializer = StockSerializer(stock_object, many=True,)
-        print(serializer.data)
         df = pd.DataFrame(serializer.data)
-        print(df)
         df.to_excel(f'excel-file/stock-data{random.randint(1,10)}.xlsx',encoding='UTF-8', index=False)
         return JsonResponse(df.to_json(), safe=False)
 
     def post(self, request):
-        print('in post :', request.FILES)
 
         file = request.FILES.get('file')
         df = pd.read_excel(file)
         sheet_values = df.values.tolist()
-        print('sheet_values : ', sheet_values)
         for index in range(len(sheet_values)):
-            for row in sheet_values[index]:
-                print(row)
-                portfolio_model = MyPortfolio(
-                    user=request.user, 
-                    stock_name=row[1],
-                    stock_quantity=row[2],
-                    date = row[4],
-                    purchased_price = row[5]
-                )
-
-                portfolio_model.save()
-
-        return JsonResponse({'success': 'data saved',})
+            stock_model = MyPortfolio(
+                user=request.user, 
+                stock_name=sheet_values[index][1],
+                stock_quantity=sheet_values[index][2],
+                date = sheet_values[index][4],
+                purchased_price = sheet_values[index][5]
+            )
+            stock_model.save()
+        return render(request, 'index_.html')
 
