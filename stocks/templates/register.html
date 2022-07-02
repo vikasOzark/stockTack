@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Register here{% endblock title %}
-{% block static %}<link rel="stylesheet" href="{% static 'stock/css/registration.css' %}">{% endblock static %}
+{% block static %}<link rel="stylesheet" href="{% static 'stock/css/registration.css' %}?{% now 'U' %}">{% endblock static %}
 {% block content %}
   <main>
     <!--Hey! This is the original version
@@ -26,7 +26,9 @@ of Simple CSS Waves-->
               <input type="email" id="email" name="email" placeholder="Email" class=" rounded-0 ">
               <input type="password" name="password" placeholder="Password" class=" rounded-0 ">
               <input type="password" name="password2" placeholder="Re-enter" class=" rounded-0 ">
-              <button class="submit-button d-flex" type="submit">Submit</button>
+              <button class="submit-button d-flex align-content-center" type="submit">Submit</button>
+              <b class="text-light d-flex"> don't have a one > <span><a class="text-light" href="{% url 'login' %}"> Login here</a></span></b>
+              
               {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}

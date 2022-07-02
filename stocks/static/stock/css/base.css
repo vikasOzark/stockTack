@@ -68,13 +68,19 @@ body{
      padding:10px 20px;
   }
   
-  .sign-up:hover{
-    padding:10px 20px;
-    transition:0.3s ease;
-    margin-left:1.5rem;
-    border-radius:5px;
-    border:2px  solid white;
-    box-shadow: 5px 5px 20px black
-    
-  }
-  
+.border-login:hover{
+  border:0;
+  color:white;
+  background-color: #eab8f3cd;
+  transition: all 0.3s ease-in-out; /* fallback for old browsers */
+}
+
+.hover:hover{
+  border-bottom: 5px solid #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+
+.active{
+  border-bottom: 5px solid #ffffff;
+
+}

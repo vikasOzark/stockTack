@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Home page{% endblock title %}
+{% block in_active %}active{% endblock %}
 {% block static %}
 <link rel="stylesheet" href="{% static 'stock/css/index.css' %}">
 <link rel="stylesheet" href="{% static 'stock/css/portfolio.css' %}?{% now 'U' %}">

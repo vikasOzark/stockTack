@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views import View
-from .news import  get_headlines
+from .news import get_headlines
 from .stock_search import  previous_date
 from django.contrib import messages
 from .models import MyPortfolio, Excel_Upload
@@ -27,7 +27,6 @@ class IndexHomeView(View):
 
         news_list = []
         data = stock_value(request)
-        print(data)
 
         # randon_color = ['#'+''.join([random.choice('9876543210ABCDEF') for j in range(6)]) for i in range(10)]
         random_color = ['#39CCCC' ,'#0074D9' ,'#B10DC9' ,'#4169E1' ,'#6A5ACD' ,'#EE82EE']
@@ -94,16 +93,15 @@ def login(request):
             messages.error(request, 'Invalid credentials')
             return redirect('login')
     
-    return render(request, template_name='portfolio.html')
+    return render(request, template_name='login.html')
 
-def logout_view(request):
+def logout_user(request):
     if request.method == "POST":
         logout(request)
-        return render(request,'login.html')
+    return render(request,'login.html')
 
 def get_data(request):
     data = previous_date(request.GET.get('search_value'))
-    print('in view : ',data)
     return JsonResponse({'data': data})
 
 def data_saving(request):
@@ -133,7 +131,10 @@ def data_saving(request):
                                 })
 
 def data_view(request):
-    data = MyPortfolio.objects.filter(user=request.user)
+    if request.user is not None:
+        data = MyPortfolio.objects.filter(user=request.user)
+    else:
+        data = None
     return render(request, 'data_view.html', {'data': data})
 
 class ExportImport(View):
