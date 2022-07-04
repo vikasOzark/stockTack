@@ -27,4 +27,5 @@ class MyPortfolio(models.Model):
             return 'NOT_FOUND'
 
 class Excel_Upload(models.Model):
-    excel_upload = models.FileField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    excel_upload = models.FileField(upload_to='media/')

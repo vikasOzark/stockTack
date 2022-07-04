@@ -3,7 +3,7 @@
 {% block title %}Home page{% endblock title %}
 {% block in_active %}active{% endblock %}
 {% block static %}
-<link rel="stylesheet" href="{% static 'stock/css/index.css' %}">
+<link rel="stylesheet" href="{% static 'stock/css/index.css' %}?{% now 'U' %}">
 <link rel="stylesheet" href="{% static 'stock/css/portfolio.css' %}?{% now 'U' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
@@ -28,33 +28,32 @@
 {% endblock static %}
 {% block content %}
 <!-- ========================== landing section =================================== -->
-  <main class="container position-relative" >
+  <main class="container position-relative mt-2" >
     <section class="mb-5 position-relative">
-      <div class="row">
+      <h5 class="text-light mb-3"><span uk-icon="icon: world; ratio: 1"></span> Tranding buisness news </h5>
+      <div class="uk-child-width-1-3@m" uk-grid>
         <!-- ========= -->
         {% for news in news_list %}
           {% if news.content != None %}
-          <div class="col-md-3 mt-3 border-0  news-card-h ">
-            <div class="card shadow-lg">
-              <div class="card-header text-light" style="background-color: {{random_color|random}};">
-                <h6 class="uk-heading-bullet">Featured</h6>
-              </div>
-              <img src="{{news.urlToImage}}" class="responsive" alt="">
-              <div class="card-body">
-                <h5 class="card-title">{{ news.title | title }}</h5>
-                <p class="card-text">{{ news.content| truncatechars:150 }}.</p>
-                <a href="{{ news.url }}" class="btn btn-primary">Read more</a>
+            <div class="">
+                <div class="uk-inline {{random_color |random}} shadow">
+                  <img src="{{news.urlToImage}}" width="1800" height="1200" alt="">
+                  <div class="uk-overlay p-1 uk-overlay-primary uk-position-bottom">
+                      <p>{{ news.content| truncatechars:100 }}</p>
+                      <a href="{{ news.url }}" class="m-1">Read more</a>
+                  </div>
               </div>
             </div>
-          </div>
           {% endif %}
         {% endfor %}
-        <!-- ========== -->
+
       </div>
     </section>
 
     <div uk-alert class="rounded shadow-lg mb-5">
-      <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="translate(571.786 -885.395)"><path fill="none" stroke="#373449" d="M-546.28729 900.90849c0 5.3063 0 8.675 0 13.9813l-19.00223 0c0-5.321 0-8.6063 0-13.9273m0-4.0216c0-2.3351 0-6.7058 0-9.0409l19.00223 0c0 2.3351 0 6.6076 0 8.9427M-562.85202 905.89999l11.06606 0M-562.78952 908.89999l13.00356 0M-562.78952 911.89999l14 0"/><rect width="2" height="2" x="-563.286" y="890.9" fill="#00d1b6" stroke="#373449" stroke-miterlimit="3.9"/><rect width="11" height="2" x="-559.286" y="890.9" fill="#ff5a67" stroke="#373449" stroke-miterlimit="3.9"/><rect width="14" height="4" x="-567.286" y="896.925" fill="#00d1b6" stroke="#373449" stroke-miterlimit="3.9"/><rect width="7" height="4" x="-551.286" y="896.925" fill="#ff5a67" stroke="#373449" stroke-miterlimit="3.9"/><path fill="none" stroke="#373449" d="m -549.02815,899.78549 1.24219,-1.323 1.24219,1.323"/></g></svg></span> My investings</h3> <small><a class="d-flex float-end" type="submit" id="download-btn" role="button"><small uk-icon="icon: download; ratio: 2"></small></a> </small>
+      <h3><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="translate(571.786 -885.395)"><path fill="none" stroke="#373449" d="M-546.28729 900.90849c0 5.3063 0 8.675 0 13.9813l-19.00223 0c0-5.321 0-8.6063 0-13.9273m0-4.0216c0-2.3351 0-6.7058 0-9.0409l19.00223 0c0 2.3351 0 6.6076 0 8.9427M-562.85202 905.89999l11.06606 0M-562.78952 908.89999l13.00356 0M-562.78952 911.89999l14 0"/><rect width="2" height="2" x="-563.286" y="890.9" fill="#00d1b6" stroke="#373449" stroke-miterlimit="3.9"/><rect width="11" height="2" x="-559.286" y="890.9" fill="#ff5a67" stroke="#373449" stroke-miterlimit="3.9"/><rect width="14" height="4" x="-567.286" y="896.925" fill="#00d1b6" stroke="#373449" stroke-miterlimit="3.9"/><rect width="7" height="4" x="-551.286" y="896.925" fill="#ff5a67" stroke="#373449" stroke-miterlimit="3.9"/><path fill="none" stroke="#373449" d="m -549.02815,899.78549 1.24219,-1.323 1.24219,1.323"/></g></svg></span> My investings</h3> 
+      <small><a class="d-flex float-end" type="submit" id="download-btn" role="button"><small uk-icon="icon: download; ratio: 1.5"></small></a> </small>
+      
       <div class="row d-flex justify-content-center">
         <div class="col-md-3 border p-3 text-light shadow bg-card-ins rounded m-2">
           <b> Total investments : <span>{{stock_data.total_stock_value}}</span></b>
@@ -66,14 +65,21 @@
           <b>Total P&L : <span>{{stock_data.total_PL}}</span></b>
         </div>
       </div>
-
     </div>
-    
   </main>
   <script type="text/javascript" src="https://cdn.finage.co.uk/single-ticker/main.js"></script>
+
   <!-- =================== stock search section ========================================== -->
   
   <main class="container mt-2" id="section-stock-add">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="uk-alert-warning" uk-alert uk-sticky >
+          <!-- <li {% if message.tags %} class="{{ message.tags }} text-light"{% endif %}>{{ message }}</li> -->
+          <p {% if message.tags %} class="{{ message.tags }} text-dark"{% endif %}>{{ message }}</p>
+        </div>
+      {% endfor %}
+    {% endif %}
     <section style="height:95vh;">
       <div class="search-section border d-flex justify-content-center align-self-center border pt-2 pb-2">
         <form action="">
@@ -124,9 +130,15 @@
                             <a class="border border-primary span-file m-2 p-2 rounded font-bold bg-light text-decoration-none" href="stocks/static/stock/images/tata-motors.png" download="stocks.png" >Get the Format</a>
                             <span uk-tooltip="title: Download the data format before uploading; pos: right" uk-icon="info"></span>
                             <input class="border m-2 p-2 rounded border-1 w-75 font-bold text -secondary" name="file" id="file_data" type="file">
-                            <input class="submit-btn btn-botto text-decoration-none d-flex float-end m-1" type="submit" id="upload-btn" placeholder="Upload" role="button"> 
+                            <input class="submit-btn btn-botto text-decoration-none d-flex float-end m-1 disabled" type="submit" id="upload-btn" placeholder="Upload" role="button"> 
+                            
                           </form>
                           <!-- <iframe src="excel-file/stock-data10.xlsx" width='100%' height='565px' frameborder='0'> </iframe> -->
+                          
+                          <!-- <div class="uk-alert-primary" uk-alert>
+                            <a class="uk-alert-close" uk-close></a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                        </div> -->
 
                         </div>
                       </div>     
@@ -135,6 +147,8 @@
           </div>
         </div>
       </div>
+<!-- <a id="d-a" href="no-script.html">Download now!</a> -->
+
     </section>
   </main>
   </div>
@@ -148,6 +162,12 @@
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );
 }
+
+$('#d-a').click(function(e) {
+    e.preventDefault();  //stop the browser from following
+    window.location.href = '/home/vikas/Desktop/core_site/excel-file/stock-data4.xlsx';
+});
+
 
 </script>
  

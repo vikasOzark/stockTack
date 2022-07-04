@@ -1,3 +1,4 @@
+from os import execl
 from django.contrib.auth import logout, login as auth_login, authenticate
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
@@ -29,10 +30,14 @@ class IndexHomeView(View):
         data = stock_value(request)
 
         # randon_color = ['#'+''.join([random.choice('9876543210ABCDEF') for j in range(6)]) for i in range(10)]
-        random_color = ['#39CCCC' ,'#0074D9' ,'#B10DC9' ,'#4169E1' ,'#6A5ACD' ,'#EE82EE']
+        random_color = ['c-border-1', 'c-border-2', 'c-border-3', 'c-border-4', 'c-border-5', 'c-border-6', 'c-border-7', 'c-border-8', 'c-border-9', 'c-border-10']
 
         for news in range(len(headlines_get['articles'])):
-            news_list.append(headlines_get['articles'][news])
+            img = headlines_get['articles'][news]['urlToImage']
+            content = headlines_get['articles'][news]['content']
+            if img and content is not None:
+                print(news)
+                news_list.append(headlines_get['articles'][news])
 
         context = {
             'news_list' : news_list,
@@ -133,31 +138,49 @@ def data_saving(request):
 def data_view(request):
     if request.user is not None:
         data = MyPortfolio.objects.filter(user=request.user)
+        excel_files = Excel_Upload.objects.filter(user=request.user)
+        random_color = ['c-border-1', 'c-border-2', 'c-border-3', 'c-border-4', 'c-border-5', 'c-border-6', 'c-border-7', 'c-border-8', 'c-border-9', 'c-border-10']
+
     else:
         data = None
-    return render(request, 'data_view.html', {'data': data})
+    return render(request, 'data_view.html', {'data': data, 'excel_files':excel_files, 'random_color':random_color})
 
 class ExportImport(View):
     def get(self, request):
         stock_object = MyPortfolio.objects.filter(user=request.user)
         serializer = StockSerializer(stock_object, many=True,)
         df = pd.DataFrame(serializer.data)
-        df.to_excel(f'excel-file/stock-data{random.randint(1,10)}.xlsx',encoding='UTF-8', index=False)
+        file_path = f'excel-file/stock-data{random.randint(1,10)}.xlsx'
+        excel_file = df.to_excel(
+            file_path,
+            encoding='UTF-8', 
+            index=False
+            )
+        excel_model = Excel_Upload(excel_upload=file_path, user=request.user)
+        excel_model.save()
         return JsonResponse(df.to_json(), safe=False)
 
     def post(self, request):
 
         file = request.FILES.get('file')
-        df = pd.read_excel(file)
-        sheet_values = df.values.tolist()
-        for index in range(len(sheet_values)):
-            stock_model = MyPortfolio(
-                user=request.user, 
-                stock_name=sheet_values[index][1],
-                stock_quantity=sheet_values[index][2],
-                date = sheet_values[index][4],
-                purchased_price = sheet_values[index][5]
-            )
-            stock_model.save()
+        if file is not None:
+
+            df = pd.read_excel(file)
+            sheet_values = df.values.tolist()
+            for index in range(len(sheet_values)):
+                stock_model = MyPortfolio(
+                    user=request.user, 
+                    stock_name=sheet_values[index][1],
+                    stock_quantity=sheet_values[index][2],
+                    date = sheet_values[index][4],
+                    purchased_price = sheet_values[index][5]
+                )
+                stock_model.save()
+                print('n data saved')
+            else:
+                messages.info(request, 'Please choose a excel file first !')
+                print('Please choose a excel file first !')
+                return render(request, 'index_.html')
+
         return render(request, 'index_.html')
 

@@ -17,7 +17,7 @@
 </head>
 <body>
   <header>
-    <nav class="container-fluid m-0">
+    <nav class="container-fluid m-0 " > <!--uk-sticky-->
       <div class=" p-2 d-flex justify-content-around">
         <div class="logo">
           LOGO
@@ -36,11 +36,11 @@
             
             <li class="text-white sign-up"><span uk-icon="icon: user; ratio: 1.5"></span> {{request.user}}</li>
             <li class="  ">
-              <a class="border-login shadow text-decoration-none" href="{% url 'logout' %}">Logout</a>
+              <a class="border-login shadow text-decoration-none" href="{% url 'logout' %}"><span  uk-icon="icon: sign-out; ratio: 1"> </span> Logout</a>
             </li>
             {% else %}
             <li class="border border-login text-dark shadow-lg">
-              <a href="{% url 'login' %}" class="text-decoration-none">Login|sign-up</a>
+              <a href="{% url 'login' %}" class="text-decoration-none"><span  uk-icon="icon: sign-in; ratio: 1"> </span> Login|sign-up</a>
             </li>
             <!-- <li class="border border-login text-dark shadow-lg">LogIn</li> -->
             {% endif %}

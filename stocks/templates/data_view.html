@@ -5,7 +5,7 @@
 
 {% block static %}
 
-<link rel="stylesheet" href="{% static 'stock/css/data.css' %}">
+<link rel="stylesheet" href="{% static 'stock/css/data.css' %}?{% now 'U' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,9 +18,9 @@
         <div class="container" >
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-header">
-                            <h4 class="card-title">Inside view</h4>
+                            <h4 class="card-title"><span  uk-icon="icon: table; ratio: 1"> </span> Inside view</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -106,6 +106,19 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <b class="text-light" ><span  uk-icon="icon: link; ratio: 1"></span> Your downloded excel file</b>
+                    {% for file in excel_files %}
+                        <div class="uk-alert-success rounded shadow {{ random_color | random}}" uk-alert>
+                            <div class="d-flex float-end justify-content-center">
+                                <a href="{{ file.excel_upload }}" download ><span  uk-icon="icon: download; ratio: 1.5"></span></a>
+                            </div>
+                            <p class="text-dark"><span  uk-icon="icon: file-text; ratio: 1"> </span> {{ file.excel_upload | escape }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
