@@ -64,3 +64,28 @@
   border-left: 0.5em solid #00204a;
   border-radius: 5px;
 }
+
+.stock-f-card-1{
+  background: rgb(2,0,36);
+  background: linear-gradient(201deg, rgba(2,0,36,1) 0%, rgba(144,104,148,1) 51%, rgba(0,212,255,1) 100%);
+}
+
+.stock-f-card-2{
+  background: rgb(34,193,195);
+  background: linear-gradient(201deg, rgba(34,193,195,1) 12%, rgba(189,96,182,1) 55%, rgba(99,255,135,1) 96%);
+}
+
+.stock-f-card-3{
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.stock-f-card-4{
+  background: rgb(0,2,56);
+  background: linear-gradient(201deg, rgba(0,2,56,1) 0%, rgba(0,212,255,1) 51%, rgba(0,255,255,1) 100%);
+}
+
+.stock-f-card-5{
+  background: rgb(0,0,0);
+  background: linear-gradient(201deg, rgba(0,0,0,1) 0%, rgba(0,212,255,1) 51%, rgba(0,255,255,1) 100%);
+}

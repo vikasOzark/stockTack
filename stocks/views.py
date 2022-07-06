@@ -3,7 +3,7 @@ from django.contrib.auth import logout, login as auth_login, authenticate
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.views import View
 from .news import get_headlines
 from .stock_search import  previous_date
@@ -15,6 +15,7 @@ from .serializers import StockSerializer
 import pandas as pd
 from django.http import JsonResponse
 import random
+from .forms import FeedBack
 
 
 
@@ -140,10 +141,10 @@ def data_view(request):
         data = MyPortfolio.objects.filter(user=request.user)
         excel_files = Excel_Upload.objects.filter(user=request.user)
         random_color = ['c-border-1', 'c-border-2', 'c-border-3', 'c-border-4', 'c-border-5', 'c-border-6', 'c-border-7', 'c-border-8', 'c-border-9', 'c-border-10']
-
+        card_bg = ['stock-f-card-1', 'stock-f-card-2', 'stock-f-card-3', 'stock-f-card-4', 'stock-f-card-5']
     else:
         data = None
-    return render(request, 'data_view.html', {'data': data, 'excel_files':excel_files, 'random_color':random_color})
+    return render(request, 'data_view.html', {'data': data, 'excel_files':excel_files, 'random_color':random_color, 'card_bg':card_bg})
 
 class ExportImport(View):
     def get(self, request):
@@ -184,3 +185,12 @@ class ExportImport(View):
 
         return render(request, 'index_.html')
 
+class FeedbackEmailView(FormView):
+    template_name = 'feedback.html'
+    form_class = FeedBack
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.send_email()
+        msg = 'thnks for your feedback'
+        return HttpResponse(msg)

@@ -16,6 +16,49 @@
 
     <section style="height:100vh">
         <div class="container" >
+            <div class="uk-child-width-1-4@s uk-grid-match mb-3 mt-3" uk-grid>
+                <div>
+                    <div class="uk-card uk-card-secondary uk-card-hover rounded uk-card-body uk-light p-1 {{ card_bg | random}}">
+                        <div class="d-flex justify-content-between p-1">
+                            <h3 class="uk-card-title">Tata motors</h3>
+                            <h6 class="mt-1">NSE</h6>
+                        </div>
+                        <p>Market : 55555</p>
+                        <p>Price : 652</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-primary uk-card-hover rounded uk-card-body uk-light p-1 {{ card_bg | random}}">
+                        <div class="d-flex justify-content-between p-1">
+                            <h3 class="uk-card-title">Tata motors</h3>
+                            <h6 class="mt-1">NSE</h6>
+                        </div>
+                        <p>Market : 55555</p>
+                        <p>Price : 652</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-secondary uk-card-hover rounded uk-card-body uk-light p-1">
+                        <div class="d-flex justify-content-between p-1">
+                            <h3 class="uk-card-title">Tata motors</h3>
+                            <h6 class="mt-1">NSE</h6>
+                        </div>
+                        <p>Market : 55555</p>
+                        <p>Price : 652</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-primary uk-card-hover rounded uk-card-body uk-light p-1">
+                        <div class="d-flex justify-content-between p-1">
+                            <h3 class="uk-card-title">Tata motors</h3>
+                            <h6 class="mt-1">NSE</h6>
+                        </div>
+                        <p>Market : 55555</p>
+                        <p>Price : 652</p>
+                    </div>
+                </div>  
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card shadow">
@@ -108,7 +151,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-4">
+            <div class="row mt-3">
                 <div class="col-md-6">
                     <b class="text-light" ><span  uk-icon="icon: link; ratio: 1"></span> Your downloded excel file</b>
                     {% for file in excel_files %}

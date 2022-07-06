@@ -29,7 +29,7 @@
 {% block content %}
 <!-- ========================== landing section =================================== -->
   <main class="container position-relative mt-2" >
-    <section class="mb-5 position-relative">
+    <section class="mb-5 position-relative overflow-x-scroll">
       <h5 class="text-light mb-3"><span uk-icon="icon: world; ratio: 1"></span> Tranding buisness news </h5>
       <div class="uk-child-width-1-3@m" uk-grid>
         <!-- ========= -->
@@ -39,8 +39,8 @@
                 <div class="uk-inline {{random_color |random}} shadow">
                   <img src="{{news.urlToImage}}" width="1800" height="1200" alt="">
                   <div class="uk-overlay p-1 uk-overlay-primary uk-position-bottom">
-                      <p>{{ news.content| truncatechars:100 }}</p>
-                      <a href="{{ news.url }}" class="m-1">Read more</a>
+                      <p class="text-light">{{ news.content| truncatechars:100 }}</p>
+                      <a href="{{ news.url }}" class="m-1 uk-button uk-button-text "><b>Read more</b></a>
                   </div>
               </div>
             </div>
