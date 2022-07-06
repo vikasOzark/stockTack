@@ -1,6 +1,7 @@
 hello {{name|safe}}
 Here  is a copy of your review:
-    
-    {{review|safe}}
+--------------------------------  
+
+{{review|safe}}
 
 Thank you !

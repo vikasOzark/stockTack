@@ -191,6 +191,7 @@ class FeedbackEmailView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
+        print('enterd in form validaton')
         form.send_email()
         msg = 'thnks for your feedback'
         return HttpResponse(msg)
