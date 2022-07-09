@@ -29,3 +29,8 @@ class MyPortfolio(models.Model):
 class Excel_Upload(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     excel_upload = models.FileField(upload_to='media/')
+
+    def file_name(self):
+        file_name = self.excel_upload.name.split('/')[-1]
+        print(file_name)
+        return file_name

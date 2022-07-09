@@ -16,166 +16,95 @@
 
     <section style="height:100vh">
         <div class="container" >
-            <div class="uk-child-width-1-4@s uk-grid-match mb-3 mt-3" uk-grid>
+            <div class=" uk-child-width-1-4@s uk-grid-match mb-3 mt-3 table-responsive" uk-grid>
+                {% for stock in data %}
                 <div>
-                    <div class="uk-card uk-card-secondary uk-card-hover rounded uk-card-body uk-light p-1 {{ card_bg | random}}">
+                    <div class="uk-card uk-card-secondary uk-card-hover rounded uk-card-body uk-light p-1 {{ random_color | random}} {{ card_bg | random}}">
                         <div class="d-flex justify-content-between p-1">
-                            <h3 class="uk-card-title">Tata motors</h3>
-                            <h6 class="mt-1">NSE</h6>
+                            <h3 class="uk-card-title text-light uk-text-uppercase"><strong>{{stock.stock_name}}</strong></h3>
+                            <h6 class="mt-1 text-light">NSE</h6>
                         </div>
-                        <p>Market : 55555</p>
-                        <p>Price : 652</p>
+                        <p><b>Market : 55555</b></p>
+                        <p><b>Price : 652</b></p>
                     </div>
                 </div>
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-hover rounded uk-card-body uk-light p-1 {{ card_bg | random}}">
-                        <div class="d-flex justify-content-between p-1">
-                            <h3 class="uk-card-title">Tata motors</h3>
-                            <h6 class="mt-1">NSE</h6>
-                        </div>
-                        <p>Market : 55555</p>
-                        <p>Price : 652</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="uk-card uk-card-secondary uk-card-hover rounded uk-card-body uk-light p-1">
-                        <div class="d-flex justify-content-between p-1">
-                            <h3 class="uk-card-title">Tata motors</h3>
-                            <h6 class="mt-1">NSE</h6>
-                        </div>
-                        <p>Market : 55555</p>
-                        <p>Price : 652</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="uk-card uk-card-primary uk-card-hover rounded uk-card-body uk-light p-1">
-                        <div class="d-flex justify-content-between p-1">
-                            <h3 class="uk-card-title">Tata motors</h3>
-                            <h6 class="mt-1">NSE</h6>
-                        </div>
-                        <p>Market : 55555</p>
-                        <p>Price : 652</p>
-                    </div>
-                </div>  
+                {% endfor %}
+                
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card shadow">
-                        <div class="card-header">
-                            <h4 class="card-title"><span  uk-icon="icon: table; ratio: 1"> </span> Inside view</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                        <th>
-                                            <strong>Name</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Symbol</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Price</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Change</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Change %</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Volume</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Market Cap</strong>
-                                        </th>
-                                        <th>
-                                            <strong>PE Ratio</strong>
-                                        </th>
-                                        <th>
-                                            <strong>EPS</strong>
-                                        </th>
-                                        <th>
-                                            <strong>52 Week High</strong>
-                                        </th>
-                                        <th>
-                                            <strong>52 Week Low</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Change %</strong>
-                                        </th>
-                                        <th>
-                                            <strong>Change</strong>
-                                        </th>
-
-                                    </thead>
-                                    <tbody class="table-light">
-                                        
-                                        <tr>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                            <td>test data</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                      
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row mt-3">
+
+                <div class="col-md-4">
+                    <b class="text-light" ><span  uk-icon="icon: bolt; ratio: 1"></span> All stock entrys </b>
+                    {% for file in data_all %}
+                        <div class="uk-alert-success rounded shadow {{ random_color | random}}" uk-alert>
+                            <div class="d-flex float-end">
+                                <span>&#x20B9; {{file.purchased_price}}</span>
+                            </div>
+                            <p class="text-dark text-uppercase"><span  uk-icon="icon:  more-vertical; ratio: 1"> </span> {{file.stock_name}}</p>
+                            <div class="d-flex float-end">
+                                <span>Quantity :  {{file.stock_quantity}}</span>
+                            </div>
+                            <p><span class="text-dark" uk-icon="icon: calendar; ratio: 1">  </span> {{file.date}}</p>
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+
                 <div class="col-md-6">
                     <b class="text-light" ><span  uk-icon="icon: link; ratio: 1"></span> Your downloded excel file</b>
                     {% for file in excel_files %}
                         <div class="uk-alert-success rounded shadow {{ random_color | random}}" uk-alert>
-                            <div class="d-flex float-end justify-content-center">
-                                <a href="{{ file.excel_upload }}" download ><span  uk-icon="icon: download; ratio: 1.5"></span></a>
+                            <div class="d-flex float-end mt-1">
+                                <b><a  class="uk-button-default border-0 text-decoration-none " type="button" ><span  uk-icon="icon: bolt; ratio: 1"></span> Actions</a></b>
+                                <div class="p-2 rounded shadow" uk-dropdown="pos: right-center" >
+                                    <ul class="uk-nav">
+                                        <li ><a ><small class="text-decoration-none file-get cursor-pointer" data-id="{{file.id}}" > <i class="bi bi-envelope"></i> Send via mail</small></a></li>
+                                        <li ><a ><small class="text-decoration-none file-delete" > <i class="bi bi-trash-fill"></i> Delete</small></a></li>
+                                    </ul>
+                                </div>
                             </div>
                             <p class="text-dark"><span  uk-icon="icon: file-text; ratio: 1"> </span> {{ file.excel_upload | escape }}</p>
                         </div>
+                    {% empty %}
+                        <div class="uk-alert-danger rounded shadow" uk-alert>
+                            <p class="text-dark"><span  uk-icon="icon: database; ratio: 1"> </span> No file saved!</p>
+                        </div>
                     {% endfor %}
                 </div>
+                
             </div>
+
         </div>
     </section>
 
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
+    $('.file-get').on('click', function(){ 
+        //Fetch Id 
+        var id = $(this).data('id'); 
+        
+        console.log('click id ', id);
+        $.ajax({ 
+            url: '{% url "excel_send_email" %}', 
+            type: 'GET', 
+            data: {
+                id: id,
+            }, 
+            success: function(data){ 
+                $('.file-delete').alert(data)
+            } 
+        });            
+    }); 
+
+
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{% static 'stock/js/portfolio.js' %}"></script>
+<script src="{% static 'stock/js/data_view.js' %}?{% now 'U' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit-icons.min.js"></script>
 {% endblock content %}

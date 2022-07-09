@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'stocks',
 ]
 
@@ -69,9 +70,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core_site.wsgi.application'
+# WSGI_APPLICATION = 'core_site.wsgi.application'
+ASGI_APPLICATION = "core_site.asgi.application"
 
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -141,3 +150,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'vikask99588@gmail.com'
 EMAIL_HOST_PASSWORD = 'nvhoqqovuwshwgub'
 DEFAULT_FROM_EMAIL = 'vikask99588@gmail.com'
+

@@ -23,13 +23,10 @@ def stock_value(request):
             total_stock_value += quantity * price
 
             # getting the current price of the stock
-            print('===> ;',previous_date(data.stock_name))
             try:
                 current_price = previous_date(data.stock_name)['price']
-                print('current price : ',current_price)
                 # adding the current price to the current value
                 current_value += quantity * current_price
-                print('current value : ',current_value)
             except:
                 current_price = 425
                 current_value = 1500

@@ -13,6 +13,8 @@ urlpatterns = [
     path('data_view/', views.data_view, name='data_view'),
     path('excel_upload/', views.ExportImport.as_view(), name='excel_upload'),
     path('feedback/', views.FeedbackEmailView.as_view(), name='feedback'),
+    # path('excel_send_email/', views.attachment_send, name='excel_send_email'),
+    path('excel_send_email/', views.attachment_send, name='excel_send_email'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

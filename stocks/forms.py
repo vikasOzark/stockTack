@@ -7,11 +7,6 @@ class FeedBack(forms.Form):
     feedback = forms.CharField(label = ' Feedback ', widget=forms.Textarea(attrs={'class': 'form-control mb-3' ,'row':'5', 'placeholder': 'Feedback', 'id':'feedback'}))
 
     def send_email(self):
-        print('in send mail ... ')
-        print(self.cleaned_data)
-        print(self.cleaned_data['name'],
-            self.cleaned_data['email'],
-            self.cleaned_data['feedback'])
         send_feedback_email_task.delay(
             name=self.cleaned_data['name'],
             email=self.cleaned_data['email'],

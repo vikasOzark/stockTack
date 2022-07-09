@@ -67,25 +67,25 @@
 
 .stock-f-card-1{
   background: rgb(2,0,36);
-  background: linear-gradient(201deg, rgba(2,0,36,1) 0%, rgba(144,104,148,1) 51%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(201deg, rgb(72, 69, 113) 0%, rgb(253, 231, 255) 51%, rgb(173, 229, 240) 100%);
 }
 
 .stock-f-card-2{
   background: rgb(34,193,195);
-  background: linear-gradient(201deg, rgba(34,193,195,1) 12%, rgba(189,96,182,1) 55%, rgba(99,255,135,1) 96%);
+  background: linear-gradient(201deg, rgb(173, 245, 246) 12%, rgb(202, 170, 200) 55%, rgba(99, 255, 135, 0.582) 96%);
 }
 
 .stock-f-card-3{
   background: rgb(238,174,202);
-  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: radial-gradient(circle, rgb(235, 212, 222) 0%, rgba(148,187,233,1) 100%);
 }
 
 .stock-f-card-4{
   background: rgb(0,2,56);
-  background: linear-gradient(201deg, rgba(0,2,56,1) 0%, rgba(0,212,255,1) 51%, rgba(0,255,255,1) 100%);
+  background: linear-gradient(201deg, rgb(116, 118, 168) 0%, rgb(123, 185, 198) 51%, rgb(253, 255, 185) 100%);
 }
 
 .stock-f-card-5{
   background: rgb(0,0,0);
-  background: linear-gradient(201deg, rgba(0,0,0,1) 0%, rgba(0,212,255,1) 51%, rgba(0,255,255,1) 100%);
+  background: linear-gradient(201deg, rgb(143, 143, 143) 0%, rgb(177, 242, 255) 51%, rgb(136, 237, 170) 100%);
 }

@@ -1,0 +1,6 @@
+Greetings of the day {{username}}!
+
+    You can find attached excel file of your investment below .
+
+Thanks& regards, 
+Team StockTack

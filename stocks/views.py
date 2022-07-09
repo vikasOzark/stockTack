@@ -16,8 +16,7 @@ import pandas as pd
 from django.http import JsonResponse
 import random
 from .forms import FeedBack
-
-
+from .tasks import attachment_send_task
 
 # Create your views here.
 
@@ -25,14 +24,14 @@ class IndexHomeView(View):
     template_name = 'index_.html'
 
     def get(self, request):
-        headlines_get = get_headlines()
 
-        news_list = []
         data = stock_value(request)
 
         # randon_color = ['#'+''.join([random.choice('9876543210ABCDEF') for j in range(6)]) for i in range(10)]
         random_color = ['c-border-1', 'c-border-2', 'c-border-3', 'c-border-4', 'c-border-5', 'c-border-6', 'c-border-7', 'c-border-8', 'c-border-9', 'c-border-10']
 
+        headlines_get = get_headlines()
+        news_list = []
         for news in range(len(headlines_get['articles'])):
             img = headlines_get['articles'][news]['urlToImage']
             content = headlines_get['articles'][news]['content']
@@ -138,13 +137,14 @@ def data_saving(request):
 
 def data_view(request):
     if request.user is not None:
-        data = MyPortfolio.objects.filter(user=request.user)
-        excel_files = Excel_Upload.objects.filter(user=request.user)
+        data_all = MyPortfolio.objects.filter(user=request.user)
+        data = MyPortfolio.objects.filter(user=request.user).values('stock_name').distinct()    # getting the distinct stock names
+        excel_files = Excel_Upload.objects.filter(user=request.user).order_by('-id')
         random_color = ['c-border-1', 'c-border-2', 'c-border-3', 'c-border-4', 'c-border-5', 'c-border-6', 'c-border-7', 'c-border-8', 'c-border-9', 'c-border-10']
         card_bg = ['stock-f-card-1', 'stock-f-card-2', 'stock-f-card-3', 'stock-f-card-4', 'stock-f-card-5']
     else:
         data = None
-    return render(request, 'data_view.html', {'data': data, 'excel_files':excel_files, 'random_color':random_color, 'card_bg':card_bg})
+    return render(request, 'data_view.html', {'data': data, 'excel_files':excel_files, 'random_color':random_color, 'card_bg':card_bg, 'data_all':data_all})
 
 class ExportImport(View):
     def get(self, request):
@@ -195,3 +195,18 @@ class FeedbackEmailView(FormView):
         form.send_email()
         msg = 'thnks for your feedback'
         return HttpResponse(msg)
+
+def attachment_send(request):
+    method = request.method 
+    if method == 'GET':
+        file_id = request.GET.get('id')
+        file_name = Excel_Upload.objects.get(id=file_id)
+        attachment_send_task(request, file_name.excel_upload)
+    return JsonResponse({'Data' : 'Got the id .'})
+def excel_delete(request):
+    method = request.method
+    if method == 'GET':
+        file_id = request.GET.get('id')
+        file_name = Excel_Upload.objects.get(id=file_id)
+        file_name.delete()
+        return JsonResponse({'status': 200})
