@@ -69,8 +69,17 @@ submit.addEventListener('click', function(){
             var _status = data['status'];
 
             if(_status == 200){
-                alert(message);
+                UIkit.notification("<span uk-icon='icon:  check'></span> Successfully saved your data .", {pos: 'top-right'});
             };
+
+            if(_status == 400){
+                UIkit.notification("<span uk-icon='icon:  ban'></span> Please log in first", {pos: 'top-right'});
+            };
+
+            if (_status == 402){
+                UIkit.notification("<span uk-icon='icon:  pencil'></span> Please fill all the fields", {pos: 'top-right'});
+            }
+
             $('#form-stock')[0].reset();
             $('#stock_value').val('');
 
@@ -78,16 +87,26 @@ submit.addEventListener('click', function(){
     })
 })
 
-var upload_btn  = document.getElementById('download-btn');
-upload_btn.addEventListener('click', function(){
+var download_btn  = document.getElementById('download-btn');
+download_btn.addEventListener('click', function(){
 
     $.ajax({
         url : 'excel_upload/',
         type : 'GET',
         success : function(data) {
+            console.log(data);
             alert('Excel file downloded successfully');
         }
     });
+})
+
+
+var upload_btn  = document.getElementById('upload-btn');
+upload_btn.addEventListener('click', function(){
+    // var file = document.getElementById('file_data').files[0];
+    if( $('#file_data').val() == ''){
+        UIkit.notification("<span uk-icon='icon:  close'></span> Please select a file", {pos: 'top-right'});
+    }
 })
 
 // var upload_btn  = document.getElementById('upload-btn');

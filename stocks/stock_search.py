@@ -21,6 +21,7 @@ def get_data_with_date(search_value, date_from=None, date_to=None):
     try:
         url = url = f'https://api.finage.co.uk/agg/stock/global/in/{symbol_for_fin}/1day/{date_from}/{date_to}?apikey={FINAGE_DOC_API}'
         response = requests.get(url).json()
+        print(' Response : ',response)
         return response
     except:
         return 'NOT_FOUND'

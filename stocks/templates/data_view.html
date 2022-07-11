@@ -60,7 +60,7 @@
                                 <div class="p-2 rounded shadow" uk-dropdown="pos: right-center" >
                                     <ul class="uk-nav">
                                         <li ><a ><small class="text-decoration-none file-get cursor-pointer" data-id="{{file.id}}" > <i class="bi bi-envelope"></i> Send via mail</small></a></li>
-                                        <li ><a ><small class="text-decoration-none file-delete" > <i class="bi bi-trash-fill"></i> Delete</small></a></li>
+                                        <li ><a ><small class="text-decoration-none file-delete" data-id="{{file.id}}" > <i class="bi bi-trash-fill"></i> Delete</small></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -95,10 +95,34 @@
                 id: id,
             }, 
             success: function(data){ 
-                $('.file-delete').alert(data)
-            } 
+                alert('Email sent successfully to your email address');   
+            },
+            
+            error: function(data){ 
+                alert('Error sending email to your email address'); 
+            }
+
         });            
     }); 
+
+    $('.file-delete').on('click', function(){ 
+        //Fetch Id 
+        var id = $(this).data('id');
+        
+        $.ajax({ 
+            url: '{% url "excel_delete" %}', 
+            type: 'GET', 
+            data: {
+                id: id,
+            }, 
+            success: function(data){ 
+                alert('File deleted successfully');
+            } ,
+            error: function(data){ 
+                alert('Error in deleting file');
+            }
+        });            
+    });
 
 
 </script>

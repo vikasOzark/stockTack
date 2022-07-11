@@ -1,4 +1,4 @@
-from os import execl
+import os
 from django.contrib.auth import logout, login as auth_login, authenticate
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
@@ -17,6 +17,7 @@ from django.http import JsonResponse
 import random
 from .forms import FeedBack
 from .tasks import attachment_send_task
+import mimetypes
 
 # Create your views here.
 
@@ -36,7 +37,6 @@ class IndexHomeView(View):
             img = headlines_get['articles'][news]['urlToImage']
             content = headlines_get['articles'][news]['content']
             if img and content is not None:
-                print(news)
                 news_list.append(headlines_get['articles'][news])
 
         context = {
@@ -61,6 +61,7 @@ def register(request):
 
         if request.POST is not None:
             if User.objects.filter(username=username).exists():
+                print(username, 'already exists', request.POST)
                 messages.error(request, 'Username already exists')
                 return redirect('register')
 
@@ -78,6 +79,7 @@ def register(request):
                 )
 
                 user.save()
+            return redirect('index')
 
     return render(request, template_name='register.html')
 
@@ -101,39 +103,41 @@ def login(request):
     return render(request, template_name='login.html')
 
 def logout_user(request):
-    if request.method == "POST":
-        logout(request)
-    return render(request,'login.html')
+    logout(request)
+    return render(request,'index_.html')
 
 def get_data(request):
     data = previous_date(request.GET.get('search_value'))
     return JsonResponse({'data': data})
 
 def data_saving(request):
+    print('inside in data  saving')
     # data = previous_date(request.GET.get('search_value'))
     if request.method == 'POST': 
-        stock_name = request.POST.get('stock_name')
-        stock_date = request.POST.get('stock_date')
-        stock_quantity = request.POST.get('stock_quantity')
-        purchase_price = request.POST.get('stock_price')
+        if request.user.is_authenticated:
+            stock_name = request.POST.get('stock_name')
+            stock_date = request.POST.get('stock_date')
+            stock_quantity = request.POST.get('stock_quantity')
+            purchase_price = request.POST.get('stock_price')
 
-        # sving the data to the database
-        if stock_date == '':
-            messages.info(request, 'Please enter a date')
-            return render(request, 'portfolio.html')
+            # sving the data to the database
+            if stock_date == '' and stock_quantity == '' and purchase_price == '':
+                return JsonResponse({ 'status':402 })
+            else:
+                portfolio_model = MyPortfolio(
+                    user=request.user, 
+                    stock_name=stock_name,
+                    stock_quantity=stock_quantity,
+                    date = stock_date,
+                    purchased_price = purchase_price
+                )
+
+                portfolio_model.save()
+            return JsonResponse({'success': 'data saved',
+                                'status':200
+                                    })
         else:
-            portfolio_model = MyPortfolio(
-                user=request.user, 
-                stock_name=stock_name,
-                stock_quantity=stock_quantity,
-                date = stock_date,
-                purchased_price = purchase_price
-            )
-
-            portfolio_model.save()
-        return JsonResponse({'success': 'data saved',
-                             'status':200
-                                })
+            return JsonResponse({'status':400})
 
 def data_view(request):
     if request.user is not None:
@@ -147,6 +151,7 @@ def data_view(request):
     return render(request, 'data_view.html', {'data': data, 'excel_files':excel_files, 'random_color':random_color, 'card_bg':card_bg, 'data_all':data_all})
 
 class ExportImport(View):
+    print('inside export import')
     def get(self, request):
         stock_object = MyPortfolio.objects.filter(user=request.user)
         serializer = StockSerializer(stock_object, many=True,)
@@ -178,10 +183,10 @@ class ExportImport(View):
                 )
                 stock_model.save()
                 print('n data saved')
-            else:
-                messages.info(request, 'Please choose a excel file first !')
-                print('Please choose a excel file first !')
-                return render(request, 'index_.html')
+        else:
+            messages.info(request, 'Please choose a excel file first !')
+            print('Please choose a excel file first !')
+            return render(request, 'index_.html')
 
         return render(request, 'index_.html')
 
@@ -191,7 +196,6 @@ class FeedbackEmailView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        print('enterd in form validaton')
         form.send_email()
         msg = 'thnks for your feedback'
         return HttpResponse(msg)
@@ -203,6 +207,7 @@ def attachment_send(request):
         file_name = Excel_Upload.objects.get(id=file_id)
         attachment_send_task(request, file_name.excel_upload)
     return JsonResponse({'Data' : 'Got the id .'})
+
 def excel_delete(request):
     method = request.method
     if method == 'GET':
@@ -210,3 +215,23 @@ def excel_delete(request):
         file_name = Excel_Upload.objects.get(id=file_id)
         file_name.delete()
         return JsonResponse({'status': 200})
+
+def download_excel(request):
+    # Define Django project base directory
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    print(BASE_DIR)
+    # Define text file name
+    filename = 'excel_format.xlsx'
+    # Define the full file path
+    filepath = BASE_DIR + '/excel-format/' + filename
+    # Open the file for reading content
+    with open(filepath, 'rb') as f:
+        file = f.read()
+    # Set the mime type
+    mime_type, _ = mimetypes.guess_type(filepath)
+    # Set the return value of the HttpResponse
+    response = HttpResponse(file, content_type=mime_type)
+    # Set the HTTP header for sending to browser
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    # Return the response value
+    return response

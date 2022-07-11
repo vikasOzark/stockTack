@@ -15,6 +15,8 @@ urlpatterns = [
     path('feedback/', views.FeedbackEmailView.as_view(), name='feedback'),
     # path('excel_send_email/', views.attachment_send, name='excel_send_email'),
     path('excel_send_email/', views.attachment_send, name='excel_send_email'),
+    path('excel/download/', views.download_excel, name='excel_download'),
+    path('excel_delete/', views.excel_delete, name='excel_delete'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
