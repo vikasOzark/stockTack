@@ -3,6 +3,6 @@ from . import views
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
+    path('auth/', obtain_auth_token),
     path('all/', views.StockDataView.as_view()),
-    path('auth/', obtain_auth_token)
 ]

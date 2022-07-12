@@ -6,20 +6,20 @@ from rest_framework import generics
 from stocks.models import MyPortfolio
 from .serializers import StockDataSerializer
 from  rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import BasicAuthentication, SessionAuthentication
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication
 from rest_framework.views import APIView
 # Create your views here.
 
 class StockDataView(generics.ListAPIView):
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [BasicAuthentication,TokenAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = StockDataSerializer
-    queryset = MyPortfolio.objects.all()
+    queryset = MyPortfolio.objects.filter(user = request.user)
 
 
 class AuthenticationView(APIView):
     def get(self, request, format=None):
-        authentication_classes = [BasicAuthentication, SessionAuthentication]
+        authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
         permission_classes = [IsAuthenticated]
 
         content = {
