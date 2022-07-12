@@ -4,21 +4,16 @@
 {% block static %}<link rel="stylesheet" href="{% static 'stock/css/registration.css' %}?{% now 'U' %}">{% endblock static %}
 {% block content %}
   <main>
-    <!--Hey! This is the original version
-of Simple CSS Waves-->
 
 <div class="header">
 
-  <!--Content before waves-->
   <div class="inner-header flex">
-  <!--Just the logo.. Don't mind this-->
 
   <h1 class="text-light font-extrabold d-flex justify-content-center mt-5">Register here </h1>
   <div class="container">
     <form action="" method="post">
       {% csrf_token %}
       <div class="main  p-2 rounded-2 shadow-lg">
-        <!--<label for="first_name text-gray ">First name </label> -->
               <input type="text" name="first_name" placeholder="First name" class=" rounded-0 ">
               <input type="text" name="last_name" placeholder="Last name" class=" rounded-0 ">
               <input type="text" name="username" placeholder="Username" class=" rounded-0">
@@ -34,7 +29,7 @@ of Simple CSS Waves-->
                     {% for message in messages %}
                     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
-                </ul>
+                </ul>`
               {% endif %}
             
         </div>

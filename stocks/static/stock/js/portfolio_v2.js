@@ -36,13 +36,6 @@ $('#search_vlue').click(function(){
    };
 })
 
-// UIkit.notify({
-//     message : 'Bazinga!',
-//     status  : 'primary',
-//     timeout : 5000,
-//     pos     : 'top-center'
-// });
-
 
 var submit = document.getElementById('submit-form');
 submit.addEventListener('click', function(){
@@ -103,17 +96,7 @@ download_btn.addEventListener('click', function(){
 
 var upload_btn  = document.getElementById('upload-btn');
 upload_btn.addEventListener('click', function(){
-    // var file = document.getElementById('file_data').files[0];
     if( $('#file_data').val() == ''){
         UIkit.notification("<span uk-icon='icon:  close'></span> Please select a file", {pos: 'top-right'});
     }
 })
-
-// var upload_btn  = document.getElementById('upload-btn');
-// upload_btn.addEventListener('click', function(){
-//     var token =  $('input[name="csrfmiddlewaretoken"]').attr('value'); 
-//     var file_data = $('#file_data');
-//     alert(file_data);
-//     console.log(file_data);
-
-// })
