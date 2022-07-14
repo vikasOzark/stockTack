@@ -1,30 +1,53 @@
-from urllib import response
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from requests import request
 from rest_framework import generics
-
+from stocks.news import get_headlines
 from stocks.models import MyPortfolio
-from .serializers import StockDataSerializer
-from  rest_framework.permissions import IsAuthenticated
+from . import serializers
+from  rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication
 from rest_framework.views import APIView
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import permissions
+from rest_framework.response import Response
 # Create your views here.
 
 class StockDataView(generics.ListAPIView):
-    authentication_classes = [BasicAuthentication,TokenAuthentication]
+    
+    authentication_classes = [TokenAuthentication, SessionAuthentication, ]
     permission_classes = [IsAuthenticated]
-    serializer_class = StockDataSerializer
-    queryset = MyPortfolio.objects.filter(user = request.user)
+    serializer_class = serializers.StockDataSerializer
+    
+    def get_queryset(self):
+        user = self.request.user
+        print('user :', user)
+        try :
+            if user.is_superuser:
+                print('in admin', IsAdminUser)
+                return MyPortfolio.objects.all()
+            else:
+                print('in none admin :')
+                return MyPortfolio.objects.all().filter(user=user)
+        except:
+            return None
+
+class CreateUserView(generics.CreateAPIView):
+    serializer_class = serializers.CreateUserSerislizer
+    permission_classes = [permissions.BasePermission]
 
 
-class AuthenticationView(APIView):
-    def get(self, request, format=None):
-        authentication_classes = [BasicAuthentication, SessionAuthentication, TokenAuthentication]
-        permission_classes = [IsAuthenticated]
+class GetNewsView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+    def get(self, request, *args, **kwargs):
+        return Response(get_headlines())
 
-        content = {
-            'user': str(request.user),
+class StockDetailAddView(generics.CreateAPIView):
+    serializer_class = serializers.StockDataSerializer
+    authentication_classes = [TokenAuthentication, SessionAuthentication, ]
+    permission_classes = [IsAuthenticated ]
 
-            'auth': str(request.auth),
-        }
-        return response(content)
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            serializer.save(user=self.request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors)

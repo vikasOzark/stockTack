@@ -30,6 +30,7 @@ class Excel_Upload(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     excel_upload = models.FileField(upload_to='media/')
 
+    @property
     def file_name(self):
         file_name = self.excel_upload.name.split('/')[-1]
         print(file_name)
