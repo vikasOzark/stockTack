@@ -6,10 +6,10 @@ from stocks.news import get_headlines
 User = get_user_model()
 
 class StockDataSerializer(serializers.ModelSerializer):
-    user = serializers.Mode
+    user = serializers.ReadOnlyField(source='User')
     class Meta:
         model = MyPortfolio
-        fields = ('stock_name', 'stock_quantity', 'is_favorite', 'date', 'purchased_price', )
+        fields = ("user", "stock_name", "stock_quantity", "is_favorite", "date", "purchased_price", )
 
 class CreateUserSerislizer(serializers.ModelSerializer):
     class Meta :
