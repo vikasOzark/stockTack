@@ -13,8 +13,7 @@ This end point will take you to the authentication. You need to pass credencials
     "last_name" : "last name",
     "email" : "example@test.com",
     "username" : "test123",
-    "password" : " Secret ***** ",
-
+    "password" : "Secret *****",
 }
 ~~~
 
@@ -45,7 +44,7 @@ To perform this action u need to stay loged in or so pass the `Authentication To
 **Note: Please check the stock name twice add `Full name` of the stock*
 #
 
-**`Fetching the DATA `**
+**`Fetching the user DATA `**
 -
 ~~~
 http://localhost:8000/api/all/

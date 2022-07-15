@@ -10,11 +10,12 @@ from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import permissions
 from rest_framework.response import Response
+from rest_framework_simplejwt.authentication import JWTAuthentication
 # Create your views here.
 
 class StockDataView(generics.ListAPIView):
     
-    authentication_classes = [TokenAuthentication, SessionAuthentication, ]
+    authentication_classes = [JWTAuthentication, SessionAuthentication,]
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.StockDataSerializer
     
