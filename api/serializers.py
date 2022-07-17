@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from stocks.models import MyPortfolio
-from stocks.news import get_headlines
+from stocks.models import MyPortfolio, Excel_Upload
 
 User = get_user_model()
 
@@ -20,3 +19,8 @@ class CreateUserSerislizer(serializers.ModelSerializer):
             user = User.objects.create_user(**validated_data)
             return user
 
+class ExcelUploadSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='User')
+    class Meta:
+        model = Excel_Upload
+        fields = ("user", "excel_upload", )

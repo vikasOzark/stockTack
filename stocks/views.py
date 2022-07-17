@@ -151,7 +151,6 @@ def data_view(request):
     return render(request, 'data_view.html', {'data': data, 'excel_files':excel_files, 'random_color':random_color, 'card_bg':card_bg, 'data_all':data_all})
 
 class ExportImport(View):
-    print('inside export import')
     def get(self, request):
         stock_object = MyPortfolio.objects.filter(user=request.user)
         serializer = StockSerializer(stock_object, many=True,)

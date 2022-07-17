@@ -26,6 +26,9 @@ class MyPortfolio(models.Model):
         except:
             return 'NOT_FOUND'
 
+    def __str__(self):
+        return f'{self.stock_name } -> { self.user}'
+
 class Excel_Upload(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     excel_upload = models.FileField(upload_to='media/')
@@ -35,3 +38,6 @@ class Excel_Upload(models.Model):
         file_name = self.excel_upload.name.split('/')[-1]
         print(file_name)
         return file_name
+
+    def __str__(self):
+        return f'{self.excel_upload} -> { self.user}'

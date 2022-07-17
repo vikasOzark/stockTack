@@ -1,16 +1,18 @@
-from django.shortcuts import get_object_or_404, render
-from requests import request
+from django.http import JsonResponse
 from rest_framework import generics
+from yaml import serialize
 from stocks.news import get_headlines
 from stocks.models import MyPortfolio
 from . import serializers
 from  rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication
 from rest_framework.views import APIView
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from stocks.calculate import stock_value
+from stocks.views import ExportImport, download_excel
+
 # Create your views here.
 
 class StockDataView(generics.ListAPIView):
@@ -52,3 +54,32 @@ class StockDetailAddView(generics.CreateAPIView):
             serializer.save(user=self.request.user)
             return Response(serializer.data)
         return Response(serializer.errors)
+
+class StockValueDataView(APIView):
+    authentication_classes = [JWTAuthentication, SessionAuthentication, ]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        print(args, kwargs)
+        stock_value_data = stock_value(request)
+        return Response(stock_value_data)
+
+class StockDataExcelView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication, SessionAuthentication, ]
+    serializer_class = serializers.ExcelUploadSerializer
+
+    def get(self, request):
+        ExportImport.get(self, request)
+        return JsonResponse({'message':'success'
+                                'data'})
+
+    def post(self, request):
+        ExportImport.post(self, request)
+        return JsonResponse({'message':'success'})
+    
+class ExcelFormatView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication, SessionAuthentication, ]
+    def get(self, request):
+        return download_excel(request)
