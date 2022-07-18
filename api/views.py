@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from rest_framework import generics
 from yaml import serialize
 from stocks.news import get_headlines
-from stocks.models import MyPortfolio
+from stocks import models
 from . import serializers
 from  rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication
@@ -27,10 +27,10 @@ class StockDataView(generics.ListAPIView):
         try :
             if user.is_superuser:
                 print('in admin', IsAdminUser)
-                return MyPortfolio.objects.all()
+                return models.MyPortfolio.objects.all()
             else:
                 print('in none admin :')
-                return MyPortfolio.objects.all().filter(user=user)
+                return models.MyPortfolio.objects.all().filter(user=user)
         except:
             return None
 
@@ -83,3 +83,18 @@ class ExcelFormatView(APIView):
     authentication_classes = [JWTAuthentication, SessionAuthentication, ]
     def get(self, request):
         return download_excel(request)
+
+class SavedExcelListView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication, SessionAuthentication, ]
+    serializer_class = serializers.ExcelUploadSerializer
+
+    def get_queryset(self):
+        qs = models.Excel_Upload.objects.all().filter(user = self.request.user)
+        return qs
+
+    def get(self, request):
+        qs = self.get_queryset()
+        serializer = serializers.ExcelUploadSerializer(qs, many=True)
+        return Response(serializer.data)
+    

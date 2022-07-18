@@ -19,5 +19,6 @@ urlpatterns = [
     path('stock-value/', views.StockValueDataView.as_view()), # get the stock value of the user's portfolio {P&L}
     path('excel-save/', views.StockDataExcelView.as_view()), # save the stock data to excel file | GET = save your data in excel file, POST= upload your data from excel file
     path('excel-format/', views.ExcelFormatView.as_view()), # get the excel format of the stock data
+    path('excel-list/', views.SavedExcelListView.as_view()), # get the list of saved excel files
 ]
 
